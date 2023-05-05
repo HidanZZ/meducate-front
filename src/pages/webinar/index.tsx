@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import CardNavigationCenter from 'src/views/ui/cards/EventNavigationCenter'
+import CardNavigationCenter from 'src/views/ui/cards/EventCard'
 
 
 const Webinar = () => {
