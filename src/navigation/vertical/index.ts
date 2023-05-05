@@ -14,6 +14,11 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:email-outline',
     },
     {
+      title: 'Webinar',
+      path: '/webinar',
+      icon: 'solar:play-stream-broken',
+    },
+    {
       path: '/acl',
       action: 'read',
       subject: 'acl-page',
