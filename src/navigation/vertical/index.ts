@@ -15,8 +15,22 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'Webinar',
-      path: '/webinar',
       icon: 'solar:play-stream-broken',
+      badgeColor: 'success',
+      children: [
+        {
+          title: 'Home',
+          path: '/webinar'
+        },
+        {
+          title: 'Schedule',
+          path: '/components/schedule'
+        },
+        {
+          title: 'Speakers',
+          path: '/components/speakers'
+        }
+      ]
     },
     {
       path: '/acl',
