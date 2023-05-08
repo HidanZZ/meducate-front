@@ -24,11 +24,11 @@ const navigation = (): VerticalNavItemsType => {
         },
         {
           title: 'Schedule',
-          path: '/components/schedule'
+          path: '/webinar/schedule'
         },
         {
           title: 'Speakers',
-          path: '/components/speakers'
+          path: '/webinar/speakers'
         }
       ]
     },
