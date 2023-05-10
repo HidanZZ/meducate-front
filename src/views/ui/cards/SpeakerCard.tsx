@@ -9,6 +9,7 @@ import Dialog from '@mui/material/Dialog'
 import IconButton from '@mui/material/IconButton'
 import Fade from '@mui/material/Fade'
 import DialogContent from '@mui/material/DialogContent'
+import Button from '@mui/material/Button'
 
 import Icon from 'src/@core/components/icon'
 
@@ -23,10 +24,8 @@ const CardSpeaker = (props) => {
 
   const speaker = props.speaker;
   return (
+    
     <Card
-      onClick={() => {
-        setShow(true);
-      }}
       sx={{
         height: '100%',
         maxWidth: '235px',
@@ -38,7 +37,7 @@ const CardSpeaker = (props) => {
         cursor: 'pointer'
       }}
     >
-      <CardMedia sx={{ height: '14.625rem' }}>
+      <CardMedia sx={{ height: '14.625rem' }} onClick={() => setShow(true)}>
         {speaker.picture ? (
           <img
             src={speaker.picture}
@@ -69,7 +68,7 @@ const CardSpeaker = (props) => {
           />
         )}
       </CardMedia>
-      <CardContent>
+      <CardContent onClick={() => setShow(true)}>
         <Typography variant='h6' sx={{ mb: 2 }}>
           {speaker.firstName} {speaker.lastName}
         </Typography>
@@ -85,11 +84,16 @@ const CardSpeaker = (props) => {
         maxWidth='lg'
         onClose={() => setShow(false)}
         TransitionComponent={Transition}
+        onBackdropClick={() => {
+          setShow(false);
+        }}
       >
         <DialogContent sx={{ px: { xs: 8, sm: 15 }, py: { xs: 8, sm: 12.5 }, position: 'relative' }}>
           <IconButton
             size='small'
-            onClick={() => setShow(false)}
+            onClick={() => {
+              setShow(false);
+            }}
             sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
           >
             <Icon icon='mdi:close' />
@@ -102,13 +106,14 @@ const CardSpeaker = (props) => {
               display: 'flex',
               alignItems: 'center',
               flexDirection: ['column', null, 'row'],
+              flexWrap: 'wrap',
             }}
           >
             <CardMedia
               sx={{
                 height: '14.625rem',
-                width: ['100%', null, '25%'],
                 display: 'flex',
+                m:5
               }}
             >
               {speaker.picture ? (
@@ -121,7 +126,7 @@ const CardSpeaker = (props) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     display: 'flex',
-                    margin: '0 auto',
+                    margin: ' auto',
                     padding: '0 10',
                   }}
                 />
@@ -145,7 +150,7 @@ const CardSpeaker = (props) => {
             <Box
               sx={{
                 m: 6,
-                width: ['100%', null, '70%'],
+                width: ['100%', '70%', '70%'],
                 alignItems: ['center', null, 'flex-start'],
                 justifyContent: 'space-between',
                 ml: [0, null, 4],
@@ -166,16 +171,9 @@ const CardSpeaker = (props) => {
               </Typography>
             </Box>
           </Box>
-
-
-          <Box sx={{ mt: 5.75, ml: 4, mr: 4, display: 'flex', alignItems: 'center' }}>
-            
-          </Box> 
          
         </DialogContent>
       </Dialog>
-
-
 
     </Card>
   );

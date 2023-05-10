@@ -23,10 +23,6 @@ const navigation = (): VerticalNavItemsType => {
           path: '/webinar'
         },
         {
-          title: 'Schedule',
-          path: '/webinar/schedule'
-        },
-        {
           title: 'Speakers',
           path: '/webinar/speakers'
         }
