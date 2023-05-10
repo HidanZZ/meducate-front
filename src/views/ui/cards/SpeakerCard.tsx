@@ -1,4 +1,4 @@
-import { useState, forwardRef } from 'react'
+import { useState } from 'react'
 
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
@@ -7,24 +7,28 @@ import CardMedia from '@mui/material/CardMedia'
 import Box from '@mui/material/Box'
 import Dialog from '@mui/material/Dialog'
 import IconButton from '@mui/material/IconButton'
-import Fade from '@mui/material/Fade'
 import DialogContent from '@mui/material/DialogContent'
-import Button from '@mui/material/Button'
 
 import Icon from 'src/@core/components/icon'
 
+type speaker = {
+  speaker: {
+    id: number,
+    firstName: string,
+    lastName: string,
+    picture: string,
+    company: string,
+    jobTitle: string,
+    description: string
+  }
+}
 
-const Transition = forwardRef(function Transition(props, ref) {
-  return <Fade ref={ref} {...props} />
-})
-
-const CardSpeaker = (props) => {
+const CardSpeaker = (props: speaker) => {
   const [show, setShow] = useState(false)
 
-
   const speaker = props.speaker;
-  return (
-    
+
+  return (  
     <Card
       sx={{
         height: '100%',
@@ -83,7 +87,6 @@ const CardSpeaker = (props) => {
         scroll='body'
         maxWidth='lg'
         onClose={() => setShow(false)}
-        TransitionComponent={Transition}
         onBackdropClick={() => {
           setShow(false);
         }}
