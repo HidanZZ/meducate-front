@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 
 const Timer = () => {
@@ -46,8 +46,42 @@ const Timer = () => {
     }, []);
 
     return (
-        
-    );
+        <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
+      <Grid item xs={3}>
+        <Typography variant="h4" align="center">
+          {timeRemaining.days}
+        </Typography>
+        <Typography variant="h4" align="center">
+          {timeRemaining.days === 1 ? ' day' : ' days'}
+        </Typography>
+      </Grid>
+      <Grid item xs={3}>
+        <Typography variant="h4" align="center">
+          {timeRemaining.hours}
+        </Typography>
+        <Typography variant="h4" align="center">
+          {timeRemaining.hours === 1 ? ' hour' : ' hours'}
+        </Typography>
+      </Grid>
+      <Grid item xs={3}>
+        <Typography variant="h4" align="center">
+          {timeRemaining.minutes}
+        </Typography>
+        <Typography variant="h4" align="center">
+          {timeRemaining.minutes === 1 ? ' minute' : ' minutes'}
+        </Typography>
+      </Grid>
+      <Grid item xs={3}>
+        <Typography variant="h4" align="center">
+          {timeRemaining.seconds}
+        </Typography>
+        <Typography variant="h4" align="center">
+          {timeRemaining.seconds === 1 ? ' second' : ' seconds'}
+        </Typography>
+      </Grid>
+    </Grid>
+  );
 };
+
 
 export default Timer;

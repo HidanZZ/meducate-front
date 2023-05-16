@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import AvatarGroup from '@mui/material/AvatarGroup'
 import ReactPlayer from 'react-player'
+import Countdown from '../Countdown'
 
 
 const EventCard = () => {
@@ -108,6 +109,7 @@ const EventCard = () => {
             <Avatar src='/images/avatars/6.png' alt='Hallie Richards' />
           </AvatarGroup>
         </Box>
+        <Countdown/>
       </CardContent>
     </Card>
 
