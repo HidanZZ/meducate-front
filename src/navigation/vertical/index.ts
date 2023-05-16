@@ -14,6 +14,29 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:email-outline',
     },
     {
+      title: 'Webinar',
+      icon: 'solar:play-stream-broken',
+      badgeColor: 'success',
+      children: [
+        {
+          title: 'single webinar',
+          path: '/webinar/single-webinar'
+        },
+        {
+          title: 'Stage',
+          path: '/webinar/stage'
+        },
+        {
+          title: 'schedule',
+          path: '/webinar/schedule'
+        },
+        {
+          title: 'Speakers',
+          path: '/webinar/speakers'
+        }
+      ]
+    },
+    {
       path: '/acl',
       action: 'read',
       subject: 'acl-page',
