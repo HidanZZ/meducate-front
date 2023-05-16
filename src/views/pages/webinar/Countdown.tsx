@@ -2,48 +2,58 @@ import { Box, Grid, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 
 const Timer = () => {
-    const targetDate = '2023-10-31';
-    const targetTime = '23:59:59';
-
-    const calculateTimeRemaining = () => {
-        const targetDateTime = new Date(`${targetDate}T${targetTime}`);
-        const currentTime = new Date().getTime();
-        const timeDiff = targetDateTime - currentTime;
-
-        if (timeDiff <= 0) {
-        // Timer has reached or passed the target date and time
-        return {
-            days: 0,
-            hours: 0,
-            minutes: 0,
-            seconds: 0,
+    const [timeRemaining, setTimeRemaining] = useState({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      });
+    
+      useEffect(() => {
+        const targetDate = '2023-06-01';
+        const targetTime = '12:00:00';
+        const targetDateTime = new Date(`${targetDate}T${targetTime}`).getTime();
+        
+        const updateTimer = () => {
+          const currentTime = new Date().getTime();
+          const timeDiff = targetDateTime - currentTime;
+    
+          if (timeDiff <= 0) {
+            setTimeRemaining({
+              days: 0,
+              hours: 0,
+              minutes: 0,
+              seconds: 0,
+            });
+          } else {
+            let remainingTime = timeDiff;
+    
+            const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+            remainingTime -= days * (1000 * 60 * 60 * 24);
+    
+            const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+            remainingTime -= hours * (1000 * 60 * 60);
+    
+            const minutes = Math.floor(remainingTime / (1000 * 60));
+            remainingTime -= minutes * (1000 * 60);
+    
+            const seconds = Math.floor(remainingTime / 1000);
+    
+            setTimeRemaining({
+              days,
+              hours,
+              minutes,
+              seconds,
+            });
+          }
         };
-        }
-
-        const seconds = Math.floor(timeDiff / 1000);
-        const minutes = Math.floor(seconds / 60);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
-
-        return {
-        days: days,
-        hours: hours % 24,
-        minutes: minutes % 60,
-        seconds: seconds % 60,
-        };
-    };
-
-    const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining());
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-        setTimeRemaining(calculateTimeRemaining());
-        }, 1000);
-
-        return () => {
-        clearInterval(timer);
-        };
-    }, []);
+    
+        // Update the timer every second
+        const timerId = setInterval(updateTimer, 1000);
+    
+        // Cleanup the interval when the component is unmounted
+        return () => clearInterval(timerId);
+      }, []);
 
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
