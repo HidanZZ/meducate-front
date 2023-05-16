@@ -46,63 +46,74 @@ const Timer = () => {
     }, []);
 
     return (
-<Grid container spacing={2} direction="row" justifyContent="center" alignItems="center" width="80%"
-    sx={{
-        border: '3px solid rgba(0, 0, 0, 0.6)',
-        borderRadius: '4px',
-        padding: '8px',
-    }}
->
-  <Grid item xs={2}>
-    <Typography variant="h5" align="center">
-      {timeRemaining.days}
-    </Typography>
-    <Typography variant="h6" align="center">
-      {timeRemaining.days === 1 ? ' day' : ' days'}
-    </Typography>
-  </Grid>
-  <Grid item xs={1}>
-    <Typography variant="h5" align="center">
-      :
-    </Typography>
-  </Grid>
-  <Grid item xs={2}>
-    <Typography variant="h5" align="center">
-      {timeRemaining.hours}
-    </Typography>
-    <Typography variant="h6" align="center">
-      {timeRemaining.hours === 1 ? ' hour' : ' hours'}
-    </Typography>
-  </Grid>
-  <Grid item xs={1}>
-    <Typography variant="h5" align="center">
-      :
-    </Typography>
-  </Grid>
-  <Grid item xs={2}>
-    <Typography variant="h5" align="center">
-      {timeRemaining.minutes}
-    </Typography>
-    <Typography variant="h6" align="center">
-      {timeRemaining.minutes === 1 ? ' minute' : ' minutes'}
-    </Typography>
-  </Grid>
-  <Grid item xs={1}>
-    <Typography variant="h5" align="center">
-      :
-    </Typography>
-  </Grid>
-  <Grid item xs={2}>
-    <Typography variant="h5" align="center">
-      {timeRemaining.seconds}
-    </Typography>
-    <Typography variant="h6" align="center">
-      {timeRemaining.seconds === 1 ? ' second' : ' seconds'}
-    </Typography>
-  </Grid>
-</Grid>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid
+                container
+                spacing={2}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                width="80%"
+                sx={{
+                    border: '3px solid white',
+                    borderRadius: '4px',
+                    padding: '8px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+                >
+                <Grid item xs={2}>
+                    <Typography variant="h5" align="center" color='white'>
+                    {timeRemaining.days}
+                    </Typography>
+                    <Typography variant="h6" align="center" color='white'>
+                    {timeRemaining.days === 1 ? ' day' : ' days'}
+                    </Typography>
+                </Grid>
+                <Grid item xs={1}>
+                    <Typography variant="h5" align="center" color='white'>
+                    :
+                    </Typography>
+                </Grid>
+                <Grid item xs={2}>
+                    <Typography variant="h5" align="center" color='white'>
+                    {timeRemaining.hours}
+                    </Typography>
+                    <Typography variant="h6" align="center" color='white'>
+                    {timeRemaining.hours === 1 ? ' hour' : ' hours'}
+                    </Typography>
+                </Grid>
+                <Grid item xs={1}>
+                    <Typography variant="h5" align="center" color='white'>
+                    :
+                    </Typography>
+                </Grid>
+                <Grid item xs={2}>
+                    <Typography variant="h5" align="center" color='white'>
+                    {timeRemaining.minutes}
+                    </Typography>
+                    <Typography variant="h6" align="center" color='white'>
+                    {timeRemaining.minutes === 1 ? ' minute' : ' minutes'}
+                    </Typography>
+                </Grid>
+                <Grid item xs={1}>
+                    <Typography variant="h5" align="center" color='white'>
+                    :
+                    </Typography>
+                </Grid>
+                <Grid item xs={2}>
+                    <Typography variant="h5" align="center" color='white'>
+                    {timeRemaining.seconds}
+                    </Typography>
+                    <Typography variant="h6" align="center" color='white'>
+                    {timeRemaining.seconds === 1 ? ' second' : ' seconds'}
+                    </Typography>
+                </Grid>
+            </Grid>
+        </Box>
 
-
+    
   );
 };
 

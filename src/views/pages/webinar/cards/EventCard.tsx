@@ -13,35 +13,57 @@ import Countdown from '../Countdown'
 const EventCard = () => {
   return (
     <Card
+    sx={{
+      position: 'relative',
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: '0 auto',
+      padding: '0 10',
+    }}
+  >
+    <CardMedia
+    sx={{
+      aspectRatio: '21/8.88',
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  > 
+    <Box sx={{width:'100%', height:'100%', filter: 'blur(2px)'}}>
+      <ReactPlayer
+        url={'https://www.youtube.com/watch?v=wNTrWZ42olc'}
+        playing
+        loop
+        muted
+        width="100%"
+        height="100%"
+        controls={false}
+        config={{
+          youtube: {
+            playerVars: {
+              start: 400, // Start playing from 30 seconds
+              end: 500, // Play until 60 seconds
+              showinfo: 0,
+            },
+          },
+        }}
+      />
+    </Box>
+    <Box
       sx={{
-        position: 'relative',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: '0 auto',
-        padding: '0 10',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 1,
+        textAlign: 'center',
+        width: '100%',
       }}
     >
-     
-      <CardMedia sx={{ aspectRatio: '21/9',position:'relative' }}>
-        <ReactPlayer
-          url={'https://www.youtube.com/watch?v=wNTrWZ42olc'}
-          playing
-          loop
-          muted
-          width="100%"
-          height="100%"
-          controls={false}
-          config={{
-            youtube: {
-              playerVars: {
-                start: 30, // Start playing from 30 seconds
-                end: 60, // Play until 60 seconds
-                showinfo: 0,
-              },
-            },
-          }}
-        />
-      </CardMedia>
+      <Countdown />
+    </Box>
+  </CardMedia>
     
 
       <Box
@@ -109,7 +131,7 @@ const EventCard = () => {
             <Avatar src='/images/avatars/6.png' alt='Hallie Richards' />
           </AvatarGroup>
         </Box>
-        <Countdown/>
+        
       </CardContent>
     </Card>
 
