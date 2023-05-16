@@ -51,7 +51,6 @@ const StepProfessionalInfo = ({ handlePrev }: { handlePrev: () => void }) => {
   
 
   return (
-    <CleaveWrapper>
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box sx={{ mb: 4 }}>
         <Typography variant='h5'>Professional Information</Typography>
@@ -165,18 +164,22 @@ const StepProfessionalInfo = ({ handlePrev }: { handlePrev: () => void }) => {
         </Grid>
         
         <Grid item xs={12} sm={6}>
+    <CleaveWrapper>
+
           <FormControl fullWidth>
             <Controller
               name='yearsOfExperience'
               control={control}
               render={({ field }) => (
-                 <Cleave id='numeral' placeholder='years' options={{ numeral: true }} {...field} style={{
+                 <Cleave id='numeral' placeholder='Years of experience' options={{ numeral: true }} {...field} style={{
                   width: '100%',
                  }} />
               )}
             />
             {errors.yearsOfExperience && <FormHelperText sx={{ color: 'error.main' }}>{errors.yearsOfExperience.message}</FormHelperText>}
           </FormControl>
+    </CleaveWrapper>
+
         </Grid>
         <Grid item xs={12}>
           <FormControl fullWidth>
@@ -243,7 +246,6 @@ const StepProfessionalInfo = ({ handlePrev }: { handlePrev: () => void }) => {
         </Grid>
       </Grid>
     </form>
-    </CleaveWrapper>
   )
 }
 

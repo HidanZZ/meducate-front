@@ -20,6 +20,9 @@ import { useSelector } from 'react-redux'
 import FallbackSpinner from 'src/@core/components/spinner'
 import { useRouter } from 'next/router'
 import { toast } from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
+import { reset } from 'src/store/apps/register'
+import { AppDispatch } from 'src/store'
 
 const steps = [
   {
@@ -37,6 +40,7 @@ const RegisterMultiSteps = () => {
   const [activeStep, setActiveStep] = useState<number>(0)
   const {status,error} = useSelector((state: any) => state.register)
   const router =useRouter()
+  const dispatch = useDispatch<AppDispatch>()
 
   // Handle Stepper
   const handleNext = () => {
@@ -64,11 +68,12 @@ const RegisterMultiSteps = () => {
   }
   useEffect(() => {
     switch (status) {
-      case 'success':
-        router.push('/login')
+      case 'succeeded':
+        router.push('/login') 
+        dispatch(reset())
         break;
-      case 'error':
-        toast.error(error.message)
+      case 'failed':
+        toast.error(error?.message)
         break;
     }
       

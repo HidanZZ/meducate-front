@@ -6,7 +6,7 @@ interface RegisterState {
   personalInfo: PersonalInfo | {}
   professionalInfo: ProfessionalInfo | {}
   status: 'idle' | 'loading' | 'succeeded' | 'failed'
-  error: string | null | undefined
+  error: string | null | undefined | { [key: string]: string[] }
 }
 
 const initialState: RegisterState = {
@@ -25,7 +25,7 @@ const initialState: RegisterState = {
     highestQualification: '',
     profile: '',
     speciality: '',
-    yearsOfExperience: Number(''),
+    yearsOfExperience: '',
     sector: '',
     workEnvironment: '',
     institution: ''
@@ -36,24 +36,33 @@ const initialState: RegisterState = {
 
 export const registerUser = createAsyncThunk(
   'register/registerUser',
-  async (user: { personalInfo: PersonalInfo; professionalInfo: ProfessionalInfo }) => {
-    type Body = PersonalInfo & ProfessionalInfo
-    const userBody: Body = {
-      ...user.personalInfo,
-      ...user.professionalInfo
-    }
-
-    const body: Partial<Body> = {}
-
-    for (const key in userBody) {
-      if (userBody[key as keyof Body] !== '' && userBody[key as keyof Body] !== '0' && key !== 'confirmPassword') {
-        body[key as keyof Body] = userBody[key as keyof Body]
+  async (user: { personalInfo: PersonalInfo; professionalInfo: ProfessionalInfo }, { rejectWithValue }) => {
+    try {
+      type Body = PersonalInfo & ProfessionalInfo
+      const userBody: Body = {
+        ...user.personalInfo,
+        ...user.professionalInfo
       }
+
+      const body: Partial<Body> = {}
+
+      for (const key in userBody) {
+        if (userBody[key as keyof Body] !== '' && userBody[key as keyof Body] !== '0' && key !== 'confirmPassword') {
+          body[key as keyof Body] = userBody[key as keyof Body]
+        }
+      }
+
+      const response = await apiClient.post('/auth/sign-up', body)
+
+      return response.data
+    } catch (err: any) {
+      if (!err.response) {
+        throw err
+      }
+
+      // We got validation errors, let's return those so we can reference in our component
+      return rejectWithValue(err.response.data)
     }
-
-    const response = await apiClient.post('/auth/sign-up', body)
-
-    return response.data
   }
 )
 
@@ -66,7 +75,8 @@ const registerSlice = createSlice({
     },
     setProfessionalInfo: (state, action) => {
       state.professionalInfo = action.payload
-    }
+    },
+    reset: () => initialState
   },
   extraReducers: builder => {
     builder
@@ -80,11 +90,19 @@ const registerSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = 'failed'
-        state.error = action.error.message
+
+        if (action.payload) {
+          // If a payload is available, it means we have a response from the server
+          //@ts-ignore
+          state.error = action.payload
+        } else {
+          // Otherwise, we only have an error message
+          state.error = action.error.message
+        }
       })
   }
 })
 
-export const { setPersonalInfo, setProfessionalInfo } = registerSlice.actions
+export const { setPersonalInfo, setProfessionalInfo, reset } = registerSlice.actions
 
 export default registerSlice.reducer
