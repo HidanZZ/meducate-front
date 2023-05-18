@@ -57,7 +57,7 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
             <Icon icon='mdi:close' />
           </IconButton>
           <p>Are you sure you want to join the webinar?</p>
-          <Typography variant='subtitle2' sx={{ml:2 , flex: '1 0 auto' }}>
+          <Typography variant='subtitle2' sx={{ml:2 , flex: '1 0 auto', color: errors.question ? 'error.main' : '' }}>
             Question :
           </Typography>
           <FormControl fullWidth>
@@ -65,12 +65,16 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
                   name='question'
                   control={control}
                   rules={{ required: true }}
-                  render={({ field }) => (
+                  render={({ field: { value, onChange } }) => (
                     <TextField
                       fullWidth
+                      value={value}
+                      onChange={onChange}
                       multiline
                       minRows={3}
                       placeholder='Question...'
+                      error={Boolean(errors.question)}
+                      aria-describedby='validation-question'
                       sx={{
                         '& .MuiOutlinedInput-root': { alignItems: 'baseline' },
                         mb: 2
@@ -78,7 +82,7 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position='start'>
-                            <Icon icon='mdi:message-outline' />
+                            <Icon icon='mdi:message-outline'  />
                           </InputAdornment>
                         )
                       }}
@@ -86,7 +90,7 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
                   )}
                 />
                 {errors.question && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-textarea'>
+                  <FormHelperText sx={{ color: 'error.main' }} id='validation-question'>
                     This field is required
                   </FormHelperText>
                 )}
