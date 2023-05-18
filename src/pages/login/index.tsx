@@ -34,12 +34,10 @@ import Icon from 'src/@core/components/icon'
 // ** Layout Import
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 import { FormHelperText } from '@mui/material'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from 'src/store'
-import { FormInputs } from 'src/types/apps/login'
-import { signin } from 'src/store/apps/login'
-import { toast } from 'react-hot-toast'
 
+
+import { useAuth } from 'src/hooks/useAuth'
+import { LoginParams } from 'src/context/types'
 
 interface State {
   showPassword: boolean
@@ -65,7 +63,8 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ t
 }))
 const schema = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().required().min(8),
+  password: yup.string().required(),
+  rememberMe: yup.boolean()
 })
 
 const LoginPage = () => {
@@ -73,20 +72,22 @@ const LoginPage = () => {
   const [values, setValues] = useState<State>({
     showPassword: false
   })
-  const dispatch = useDispatch<AppDispatch>()
+  const auth = useAuth()
 
   // ** Hook
-  const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
+  const { register, handleSubmit, formState: { errors },setError } = useForm<LoginParams>({
     resolver: yupResolver(schema)
   })
 
-   const onSubmit = (data: FormInputs) => {
-    dispatch(signin(data)).unwrap().then((data) => {
-console.log(data);
-
-    }).catch((err) => {
-      toast.error(err.message)
+   const onSubmit = (data: LoginParams) => {
+    // auth.login
+    auth.login(data,() => {
+      setError('email', {
+        type: 'manual',
+        message: 'Email or password is incorrect'
+      })
     })
+    
   }
 
   const handleClickShowPassword = () => {
@@ -117,7 +118,7 @@ console.log(data);
               {...register('email')}
               error={Boolean(errors.email)}
             />
-            {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>}
+            {errors.email && <FormHelperText sx={{ color: 'error.main',mb:4 }}>{errors.email.message}</FormHelperText>}
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
               <OutlinedInput
@@ -143,7 +144,9 @@ console.log(data);
             <Box
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
-              <FormControlLabel control={<Checkbox />} label='Remember Me' />
+              <FormControlLabel control={<Checkbox 
+              {...register('rememberMe')}
+              />} label='Remember Me' />
               <LinkStyled href='/pages/auth/forgot-password-v1'>Forgot Password?</LinkStyled>
             </Box>
             <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
