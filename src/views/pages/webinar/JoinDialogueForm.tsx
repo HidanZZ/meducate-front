@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+
 
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
@@ -8,7 +10,14 @@ import Icon from 'src/@core/components/icon'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import Button from '@mui/material/Button'
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText'
 import { Box, Grid, Typography } from '@mui/material'
+
+
+const defaultValues = {
+  question: '',
+}
 
 interface WebinarFormProps {
   open: boolean;
@@ -18,6 +27,12 @@ interface WebinarFormProps {
 const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
   const [questions, setQuestions] = useState([]);
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({ defaultValues })
+
   const addQuestion = () => {
     setQuestions(prevQuestions => [...prevQuestions, '']);
   };
@@ -26,11 +41,13 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
     setQuestions(prevQuestions => prevQuestions.filter((_, i) => i !== index));
   };
   
+  const onSubmit = () => alert('Form Submitted');
+
   return (
     <Dialog open={open} onClose={() => onClose(false)} fullWidth>
       <DialogTitle>Webinar Confirmation</DialogTitle>
       <DialogContent>
-        <form onSubmit={e => e.preventDefault()}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <IconButton
             size='small'
             onClick={() => {
@@ -41,25 +58,28 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
             <Icon icon='mdi:close' />
           </IconButton>
           <p>Are you sure you want to join the webinar?</p>
-          <TextField
-            fullWidth
-            multiline
-            minRows={3}
-            label='Question'
-            placeholder='Question...'
-            sx={{
-              '& .MuiOutlinedInput-root': { alignItems: 'baseline' },
-              mt: 4,
-              mb: 2
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position='start'>
-                  <Icon icon='mdi:message-outline' />
-                </InputAdornment>
-              )
-            }}
-          />
+          <FormControl fullWidth>
+                <Controller
+                  name='question'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <TextField
+                      rows={4}
+                      multiline
+                      {...field}
+                      label='Bio'
+                      error={Boolean(errors.question)}
+                      aria-describedby='validation-basic-textarea'
+                    />
+                  )}
+                />
+                {errors.question && (
+                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-textarea'>
+                    This field is required
+                  </FormHelperText>
+                )}
+              </FormControl>
   
           {questions.map((question, index) => (
             <Grid container key={index} spacing={0} sx={{ width: '100%' }}>
