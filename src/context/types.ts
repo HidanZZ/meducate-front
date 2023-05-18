@@ -15,6 +15,7 @@ export type UserDataType = {
   phone: string
   country: string
   city: string
+  role: string
   highestQualification: string
   profile?: string
   speciality?: string
