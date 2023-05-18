@@ -24,7 +24,7 @@ interface WebinarFormProps {
 }
 
 const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<string[]>([]);
 
   const {
     control,
@@ -36,7 +36,7 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
     setQuestions(prevQuestions => [...prevQuestions, '']);
   };
 
-  const removeQuestion = index => {
+  const removeQuestion = (index: number): void => {
     setQuestions(prevQuestions => prevQuestions.filter((_, i) => i !== index));
   };
   
