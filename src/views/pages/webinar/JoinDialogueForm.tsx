@@ -12,7 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 
 const defaultValues = {
   question: '',
@@ -61,9 +61,6 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
             <Icon icon='mdi:close' />
           </IconButton>
           <p>Are you sure you want to join the webinar?</p>
-          <Typography variant='subtitle2' sx={{ml:2 , flex: '1 0 auto', color: errors.question ? 'error.main' : '' }}>
-            Question :
-          </Typography>
           <FormControl fullWidth>
                 <Controller
                   name='question'
@@ -101,39 +98,30 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
               </FormControl>
   
           {questions.map((question, index) => (
-            <Grid container key={index} spacing={0} sx={{ width: '100%' }}>
-              <Grid item xs={12}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Typography variant='subtitle2' sx={{ml:2 , flex: '1 0 auto' }}>
-                    Question :
-                  </Typography>
-                  
-                  <IconButton size='small' onClick={() => removeQuestion(index)}>
-                    <Icon icon='mdi:trash' />
-                  </IconButton>
-                  
-                </Box>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  multiline
-                  minRows={3}
-                  placeholder='Question...'
-                  sx={{
-                    '& .MuiOutlinedInput-root': { alignItems: 'baseline' },
-                    mb: 2
-                  }}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position='start'>
-                        <Icon icon='mdi:message-outline' />
-                      </InputAdornment>
-                    )
-                  }}
-                />
-              </Grid>
-            </Grid>
+          
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>   
+              <TextField
+                fullWidth
+                multiline
+                minRows={3}
+                placeholder='Question...'
+                sx={{
+                  '& .MuiOutlinedInput-root': { alignItems: 'baseline' },
+                  mb: 2
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position='start'>
+                      <Icon icon='mdi:message-outline' />
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <IconButton size='small' onClick={() => removeQuestion(index)}>
+                <Icon icon='mdi:trash' />
+              </IconButton>
+            </Box>
+
           ))}
           <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 4 }}>
           <Button variant='contained' onClick={addQuestion}>
