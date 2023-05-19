@@ -16,6 +16,7 @@ import { Box, Grid, Typography } from '@mui/material'
 
 const defaultValues = {
   question: '',
+  questionCount:'',
 }
 
 interface WebinarFormProps {
@@ -33,6 +34,9 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
   } = useForm({ defaultValues })
 
   const addQuestion = () => {
+    if (questions.length === 3) {
+      return;
+    }
     setQuestions(prevQuestions => [...prevQuestions, '']);
   };
 
