@@ -12,7 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
-import { Box, Grid } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 
 const defaultValues = {
   question: '',
@@ -26,6 +26,7 @@ interface WebinarFormProps {
 
 const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
   const [questions, setQuestions] = useState<string[]>([]);
+  const [showError, setShowError] = useState(false);
 
   const {
     control,
@@ -35,6 +36,7 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
 
   const addQuestion = () => {
     if (questions.length === 3) {
+      setShowError(true);
       return;
     }
     setQuestions(prevQuestions => [...prevQuestions, '']);
@@ -62,40 +64,40 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
           </IconButton>
           <p>Are you sure you want to join the webinar?</p>
           <FormControl fullWidth>
-                <Controller
-                  name='question'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <TextField
-                      fullWidth
-                      value={value}
-                      onChange={onChange}
-                      multiline
-                      minRows={3}
-                      placeholder='Question...'
-                      error={Boolean(errors.question)}
-                      aria-describedby='validation-question'
-                      sx={{
-                        '& .MuiOutlinedInput-root': { alignItems: 'baseline' },
-                        mb: 2
-                      }}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position='start'>
-                            <Icon icon='mdi:message-outline'  />
-                          </InputAdornment>
-                        )
-                      }}
-                />
-                  )}
-                />
-                {errors.question && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-question'>
-                    This field is required
-                  </FormHelperText>
-                )}
-              </FormControl>
+            <Controller
+              name='question'
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <TextField
+                  fullWidth
+                  value={value}
+                  onChange={onChange}
+                  multiline
+                  minRows={3}
+                  placeholder='Question...'
+                  error={Boolean(errors.question)}
+                  aria-describedby='validation-question'
+                  sx={{
+                    '& .MuiOutlinedInput-root': { alignItems: 'baseline' },
+                    mb: 5
+                  }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <Icon icon='mdi:message-outline'  />
+                      </InputAdornment>
+                    )
+                  }}
+            />
+              )}
+            />
+            {errors.question && (
+              <FormHelperText sx={{ color: 'error.main' }} id='validation-question'>
+                This field is required
+              </FormHelperText>
+            )}
+          </FormControl>
   
           {questions.map((question, index) => (
           
@@ -107,7 +109,7 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
                 placeholder='Question...'
                 sx={{
                   '& .MuiOutlinedInput-root': { alignItems: 'baseline' },
-                  mb: 2
+                  mb: 5
                 }}
                 InputProps={{
                   startAdornment: (
@@ -123,14 +125,24 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
             </Box>
 
           ))}
-          <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 4 }}>
-          <Button variant='contained' onClick={addQuestion}>
-            Add Question
-          </Button>
-          <Button variant='contained' color='primary' type='submit'>
-            Submit
-          </Button>
-        </Box>
+          {showError && (
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Typography sx={{ color: 'error.main' }} >
+                  you can have 3 question max
+                </Typography>
+              </Box>
+          )}
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 2 }}>
+            <Button variant='contained' onClick={addQuestion}>
+              <Icon icon='mdi:plus' />
+            </Button>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'right', mt: 2 }}>
+
+            <Button variant='contained' color='primary' type='submit'>
+              Submit
+            </Button>
+          </Box>
         </form>
       </DialogContent>
     </Dialog>
