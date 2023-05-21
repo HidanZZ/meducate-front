@@ -12,7 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 const defaultValues = {
   question: '',
@@ -37,6 +37,7 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
   const addQuestion = () => {
     if (questions.length === 3) {
       setShowError(true);
+      
       return;
     }
     setQuestions(prevQuestions => [...prevQuestions, '']);
@@ -101,7 +102,7 @@ const WebinarForm: React.FC<WebinarFormProps> = ({ open, onClose }) => {
   
           {questions.map((question, index) => (
           
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>   
+            <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>   
               <TextField
                 fullWidth
                 multiline
