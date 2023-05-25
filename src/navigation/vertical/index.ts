@@ -6,12 +6,17 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Home',
       path: '/home',
-      icon: 'mdi:home-outline',
+      icon: 'mdi:home-outline'
+    },
+    {
+      title: 'Dashboard',
+      path: '/dashboard',
+      icon: 'mdi:view-dashboard-outline'
     },
     {
       title: 'Second Page',
       path: '/second-page',
-      icon: 'mdi:email-outline',
+      icon: 'mdi:email-outline'
     },
     {
       sectionTitle: 'Apps'
@@ -54,6 +59,7 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:acount',
       path: '/admin/webinar'
     },
+
   ]
 }
 
