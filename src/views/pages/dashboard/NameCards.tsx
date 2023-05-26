@@ -1,9 +1,7 @@
 import { Card,Box, CardContent, Typography,Grid, Tooltip } from "@mui/material";
 import { motion } from "framer-motion";
 import { SearchName } from "src/types/apps/dashboard";
-import SentimentProgress from "./SentimentProgress";
 import Icon from 'src/@core/components/icon'
-import { useTheme } from "@emotion/react";
 
 function getShortName(name : string, maxLength  = 15) {
     if (name.length <= maxLength) {
