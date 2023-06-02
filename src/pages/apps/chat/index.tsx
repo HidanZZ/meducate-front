@@ -81,7 +81,7 @@ const AppChat = () => {
         handleLeftSidebarToggle={handleLeftSidebarToggle}
         handleUserProfileLeftSidebarToggle={handleUserProfileLeftSidebarToggle}
       />
-      {/* <ChatContent
+      <ChatContent
         store={store}
         hidden={hidden}
         sendMsg={sendMsg}
@@ -91,7 +91,7 @@ const AppChat = () => {
         sidebarWidth={sidebarWidth}
         handleLeftSidebarToggle={handleLeftSidebarToggle}
         handleUserProfileRightSidebarToggle={handleUserProfileRightSidebarToggle}
-      /> */}
+      />
     </Box>
   )
 }

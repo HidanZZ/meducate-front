@@ -35,7 +35,7 @@ const AclGuard = (props: AclGuardProps) => {
 
   if (authGuard){
 if (auth.user && auth.user.role && !ability) {
-  console.log('auth.user', auth.user);
+  
 
     setAbility(buildAbilityFor(auth.user.role, aclAbilities.subject))
   }

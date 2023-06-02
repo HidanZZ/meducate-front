@@ -1,30 +1,37 @@
 // ** Types
 import { Dispatch } from 'redux'
 
-export type ChatType = {
-  message: string
-  senderId: string
-  time: Date | string
+export type ChatsObj = {
+  _id: string | null
+  messages: MessageType[]
+  lastMessage?: MessageType
+  title: string
+  description?: string
 }
 
-export type ChatsObj = {
-  id: string | null
-  chat: ChatType[]
-  lastMessage?: ChatType
+export type ChatObjWithoutMessages = {
+  id: string
   title: string
+  description?: string
+  lastMessage?: MessageType
 }
 
 export type SelectedChatType = null | ChatsObj
 
 export type ChatStoreType = {
-  chats: ChatsObj[] | null
+  chats: ChatObjWithoutMessages[] | null
   selectedChat: ChatsObj | null
 }
 
-export type SendMsgParamsType = {
-  chat?: ChatsObj
+export type SendMsgPayload = {
+  chatId: string | null
   message: string
-  contact?: ChatsObj
+}
+
+export type SendMsgResponse = {
+  id: string
+  message: string
+  status: number
 }
 
 export type ChatContentType = {
@@ -35,7 +42,7 @@ export type ChatContentType = {
   dispatch: Dispatch<any>
   handleLeftSidebarToggle: () => void
   getInitials: (val: string) => string
-  sendMsg: (params: SendMsgParamsType) => void
+  sendMsg: (params: SendMsgPayload) => void
   handleUserProfileRightSidebarToggle: () => void
 }
 
@@ -58,7 +65,7 @@ export type ChatSidebarLeftType = {
 export type SendMsgComponentType = {
   store: ChatStoreType
   dispatch: Dispatch<any>
-  sendMsg: (params: SendMsgParamsType) => void
+  sendMsg: (params: SendMsgPayload) => void
 }
 
 export type ChatLogType = {

@@ -19,7 +19,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 
 
 // ** Types
-import {  ChatSidebarLeftType, ChatsObj } from 'src/types/apps/chat'
+import {  ChatObjWithoutMessages, ChatSidebarLeftType } from 'src/types/apps/chat'
 
 // ** Custom Components Import
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -69,13 +69,11 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
     dispatch(addNewChat())
   }
 
-  // useEffect(() => {
-  //   if (store && store.chats) {
-  //     if (active !== null) {
-        
-  //     }
-  //   }
-  // }, [store, active])
+  useEffect(() => {
+    if (store && store.selectedChat) {
+      setActive(store.selectedChat._id)
+    }
+  }, [store])
 
   useEffect(() => {
     router.events.on('routeChangeComplete', () => {
@@ -97,10 +95,10 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
       
         const arrToMap =store.chats
 
-        return arrToMap.map((chat: ChatsObj, index: number) => {
+        return arrToMap.map((chat: ChatObjWithoutMessages, index: number) => {
           const { lastMessage } = chat
           const activeCondition = active !== null && active === chat.id 
-          console.log('chat', chat);
+          
           
           return (
             <ListItem key={index} disablePadding sx={{ '&:not(:last-child)': { mb: 1.5 } }}>

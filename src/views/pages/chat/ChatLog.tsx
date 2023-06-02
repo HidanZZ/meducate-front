@@ -36,9 +36,7 @@ const ChatLog = (props: ChatLogType) => {
   
   const {user } = useAuth()
 
-  useEffect(() => {
-    console.log('user', user);
-  }, [user])
+
 
 
   // ** Ref
@@ -61,9 +59,9 @@ const ChatLog = (props: ChatLogType) => {
   const formattedChatData = () => {
     let chatLog: MessageType[] | [] = []
     if (chat) {
-      chatLog = chat.chat
+      chatLog = chat.messages
     }
-    console.log('chatLog', chatLog);
+    
     
 
     const formattedChatLog: FormattedChatsType[] = []
@@ -96,7 +94,7 @@ const ChatLog = (props: ChatLogType) => {
       if (index === chatLog.length - 1) formattedChatLog.push(msgGroup)
     })
 
-    console.log('formattedChatLog', formattedChatLog);
+    
     
 
     return formattedChatLog
@@ -105,7 +103,7 @@ const ChatLog = (props: ChatLogType) => {
  
 
   useEffect(() => {
-    if (chat && chat.chat.length) {
+    if (chat && chat.messages.length) {
       scrollToBottom()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,7 +112,7 @@ const ChatLog = (props: ChatLogType) => {
   // ** Renders user chat
   const renderChats = () => {
     return formattedChatData().map((item: FormattedChatsType, index: number) => {
-      console.log('item', item);
+      
       
       const isSender = item.senderId === user?._id
 
@@ -137,12 +135,7 @@ const ChatLog = (props: ChatLogType) => {
                 ml: isSender ? 3.5 : undefined,
                 mr: !isSender ? 3.5 : undefined
               }}
-              {...(!isSender
-                ? {
-                    src: 'https://via.placeholder.com/150',
-                    alt: 'User'
-                  }
-                : {})}
+             
               {...(isSender
                 ? {
                     src: user?.avatar,

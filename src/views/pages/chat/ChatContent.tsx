@@ -162,9 +162,9 @@ const ChatContent = (props: ChatContentType) => {
               </Box> */}
             </Box>
 
-            {/* {selectedChat  ? (
+            {selectedChat  ? (
               <ChatLog hidden={hidden} chat={selectedChat} />
-            ) : null} */}
+            ) : null}
 
             <SendMsgForm store={store} dispatch={dispatch} sendMsg={sendMsg} />
 
