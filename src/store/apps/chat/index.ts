@@ -8,207 +8,159 @@ import axios from 'axios'
 import { Dispatch } from 'redux'
 import { SendMsgParamsType } from 'src/types/apps/chat'
 
-// const chats =  [
-//   {
-//     id: 1,
-//     userId: 1,
-//     unseenMsgs: 1,
-//     chat: [
-//       {
-//         message: "How can we help? We're here for you!",
-//         time: 'Mon Dec 10 2018 07:45:00 GMT+0000 (GMT)',
-//         senderId: 11,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: 'Hey John, I am looking for the best admin template. Could you please help me to find it out?',
-//         time: 'Mon Dec 10 2018 07:45:23 GMT+0000 (GMT)',
-//         senderId: 1,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: 'It should be MUI v5 compatible.',
-//         time: 'Mon Dec 10 2018 07:45:55 GMT+0000 (GMT)',
-//         senderId: 1,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: 'Absolutely!',
-//         time: 'Mon Dec 10 2018 07:46:00 GMT+0000 (GMT)',
-//         senderId: 11,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: 'This admin template is built with MUI!',
-//         time: 'Mon Dec 10 2018 07:46:05 GMT+0000 (GMT)',
-//         senderId: 11,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: 'Looks clean and fresh UI. 😍',
-//         time: 'Mon Dec 10 2018 07:46:23 GMT+0000 (GMT)',
-//         senderId: 1,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: "It's perfect for my next project.",
-//         time: 'Mon Dec 10 2018 07:46:33 GMT+0000 (GMT)',
-//         senderId: 1,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: 'How can I purchase it?',
-//         time: 'Mon Dec 10 2018 07:46:43 GMT+0000 (GMT)',
-//         senderId: 1,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: 'Thanks, From our official site  😇',
-//         time: 'Mon Dec 10 2018 07:46:53 GMT+0000 (GMT)',
-//         senderId: 11,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-     
-//     ]
-//   },
-//   {
-//     id: 2,
-//     userId: 2,
-//     unseenMsgs: 0,
-//     chat: [
-//       {
-//         message: 'Hi',
-//         time: 'Mon Dec 10 2018 07:45:00 GMT+0000 (GMT)',
-//         senderId: 11,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: 'Hello. How can I help You?',
-//         time: 'Mon Dec 11 2018 07:45:15 GMT+0000 (GMT)',
-//         senderId: 2,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: 'Can I get details of my last transaction I made last month? 🤔',
-//         time: 'Mon Dec 11 2018 07:46:10 GMT+0000 (GMT)',
-//         senderId: 11,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: 'We need to check if we can provide you such information.',
-//         time: 'Mon Dec 11 2018 07:45:15 GMT+0000 (GMT)',
-//         senderId: 2,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-//       {
-//         message: 'I will inform you as I get update on this.',
-//         time: 'Mon Dec 11 2018 07:46:15 GMT+0000 (GMT)',
-//         senderId: 2,
-//         feedback: {
-//           isSent: true,
-//           isDelivered: true,
-//           isSeen: true
-//         }
-//       },
-      
-//     ]
-//   }
-// ]
+import { ChatsObj } from 'src/types/apps/chat'
 
-// ** Fetch User Profile
-export const fetchUserProfile = createAsyncThunk('appChat/fetchUserProfile', async () => {
-  const response = await axios.get('/apps/chat/users/profile-user')
+const previousDay = new Date(new Date().getTime() - 24 * 60 * 60 * 1000)
 
-  return response.data
-})
+const data: { chats: ChatsObj[] } = {
+  chats: [
+    {
+      id: '1',
+      title: 'test',
+      chat: [
+        {
+          message: "How can we help? We're here for you!",
+          time: 'Mon Dec 10 2018 07:45:00 GMT+0000 (GMT)',
+          senderId: '11'
+        },
+        {
+          message: 'Hey John, I am looking for the best admin template. Could you please help me to find it out?',
+          time: 'Mon Dec 10 2018 07:45:23 GMT+0000 (GMT)',
+          senderId: '6478b37ead83b5bb7b3cd947'
+        },
+        {
+          message: 'It should be MUI v5 compatible.',
+          time: 'Mon Dec 10 2018 07:45:55 GMT+0000 (GMT)',
+          senderId: '6478b37ead83b5bb7b3cd947'
+        },
+        {
+          message: 'Absolutely!',
+          time: 'Mon Dec 10 2018 07:46:00 GMT+0000 (GMT)',
+          senderId: '11'
+        },
+        {
+          message: 'This admin template is built with MUI!',
+          time: 'Mon Dec 10 2018 07:46:05 GMT+0000 (GMT)',
+          senderId: '11'
+        },
+        {
+          message: 'Looks clean and fresh UI. 😍',
+          time: 'Mon Dec 10 2018 07:46:23 GMT+0000 (GMT)',
+          senderId: '6478b37ead83b5bb7b3cd947'
+        },
+        {
+          message: "It's perfect for my next project.",
+          time: 'Mon Dec 10 2018 07:46:33 GMT+0000 (GMT)',
+          senderId: '6478b37ead83b5bb7b3cd947'
+        },
+        {
+          message: 'How can I purchase it?',
+          time: 'Mon Dec 10 2018 07:46:43 GMT+0000 (GMT)',
+          senderId: '6478b37ead83b5bb7b3cd947'
+        },
+        {
+          message: 'Thanks, From our official site  😇',
+          time: 'Mon Dec 10 2018 07:46:53 GMT+0000 (GMT)',
+          senderId: '11'
+        },
+        {
+          message: 'I will purchase it for sure. 👍',
+          time: previousDay,
+          senderId: '6478b37ead83b5bb7b3cd947'
+        }
+      ]
+    }
+  ]
+}
+
+const newChat: ChatsObj = {
+  id: null,
+  title: 'new chat',
+  chat: []
+}
 
 // ** Fetch Chats & Contacts
 export const fetchChatsContacts = createAsyncThunk('appChat/fetchChatsContacts', async () => {
-  const response = await axios.get('/apps/chat/chats-and-contacts')
+  const chatsContacts = data.chats.map((chat: ChatsObj) => {
+    const newChat: ChatsObj = { ...chat, lastMessage: chat.chat[chat.chat.length - 1], chat: [] }
 
-  return response.data
+    return newChat
+  })
+
+  return { chats: chatsContacts }
 })
 
 // ** Select Chat
 export const selectChat = createAsyncThunk(
   'appChat/selectChat',
   async (id: number | string, { dispatch }: { dispatch: Dispatch<any> }) => {
-    const response = await axios.get('/apps/chat/get-chat', {
-      params: {
-        id
-      }
-    })
-    await dispatch(fetchChatsContacts())
+    console.log('id', id)
 
-    return response.data
+    const chat = data.chats.find((c: ChatsObj) => c.id === id)
+
+    // @ts-ignore
+    // if (contact.chat) contact.chat.unseenMsgs = 0
+
+    await dispatch(fetchChatsContacts())
+    console.log('contact', { chat })
+
+    return chat
   }
 )
+const reorderChats = (arr: ChatsObj[], from: number, to: number) => {
+  const item = arr.splice(from, 1)
+
+  // ** Move the item to its new position
+  arr.splice(to, 0, item[0])
+}
 
 // ** Send Msg
 export const sendMsg = createAsyncThunk('appChat/sendMsg', async (obj: SendMsgParamsType, { dispatch }) => {
-  const response = await axios.post('/apps/chat/send-msg', {
-    data: {
-      obj
+  let activeChat = data.chats.find((chat: ChatsObj) => chat.id === obj.contact?.id)
+
+  const newMessageData = {
+    senderId: 11,
+    time: new Date(),
+    message: obj.message,
+    feedback: {
+      isSent: true,
+      isSeen: false,
+      isDelivered: false
     }
-  })
+  }
+
+  // If there's new chat for user create one
+  let isNewChat = false
+
+  if (activeChat === undefined) {
+    isNewChat = true
+
+    data.chats.push({
+      id: obj.contact?.id,
+      userId: obj.contact?.id,
+      unseenMsgs: 0,
+      chat: [newMessageData]
+    })
+    activeChat = data.chats[data.chats.length - 1]
+  } else {
+    activeChat.chat.push(newMessageData)
+  }
+  const response = { newMessageData, id: obj.contact?.id }
+
+  // @ts-ignore
+  if (isNewChat) response.chat = activeChat
+
+  reorderChats(
+    data.chats,
+    data.chats.findIndex(i => i.id === response.id),
+    0
+  )
   if (obj.contact) {
     await dispatch(selectChat(obj.contact.id))
   }
   await dispatch(fetchChatsContacts())
 
-  return response.data
+  return { response }
 })
 
 export const appChatSlice = createSlice({
@@ -216,28 +168,29 @@ export const appChatSlice = createSlice({
   initialState: {
     chats: null,
     contacts: null,
-    userProfile: null,
     selectedChat: null
   },
   reducers: {
     removeSelectedChat: state => {
       state.selectedChat = null
+    },
+    addNewChat: state => {
+      state.chats.push(newChat)
+      state.selectedChat = newChat
     }
   },
   extraReducers: builder => {
-    builder.addCase(fetchUserProfile.fulfilled, (state, action) => {
-      state.userProfile = action.payload
-    })
     builder.addCase(fetchChatsContacts.fulfilled, (state, action) => {
-      state.contacts = action.payload.contacts
-      state.chats = action.payload.chatsContacts
+      state.chats = action.payload.chats
     })
     builder.addCase(selectChat.fulfilled, (state, action) => {
+      console.log('action.payload', action.payload)
+
       state.selectedChat = action.payload
     })
   }
 })
 
-export const { removeSelectedChat } = appChatSlice.actions
+export const { removeSelectedChat, addNewChat } = appChatSlice.actions
 
 export default appChatSlice.reducer

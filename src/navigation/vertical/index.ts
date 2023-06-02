@@ -24,7 +24,9 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Chat',
       path: '/apps/chat',
-      icon: 'mdi:message-outline'
+      icon: 'mdi:message-outline',
+      subject: 'chat-page',
+      action: 'read'
     },
     {
       title: 'Webinar',
@@ -54,17 +56,16 @@ const navigation = (): VerticalNavItemsType => {
       action: 'read',
       subject: 'acl-page',
       title: 'Access Control',
-      icon: 'mdi:shield-outline',
+      icon: 'mdi:shield-outline'
     },
     {
       sectionTitle: 'Admin'
     },
     {
-      title :'Webinar',
+      title: 'Webinar',
       icon: 'mdi:acount',
       path: '/admin/webinar'
-    },
-
+    }
   ]
 }
 

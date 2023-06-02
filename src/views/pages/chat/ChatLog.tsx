@@ -6,8 +6,6 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
 
 // ** Third Party Components
 import PerfectScrollbarComponent, { ScrollBarProps } from 'react-perfect-scrollbar'
@@ -22,11 +20,11 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import {
   ChatLogType,
   MessageType,
-  MsgFeedbackType,
   ChatLogChatType,
   MessageGroupType,
   FormattedChatsType
 } from 'src/types/apps/chat'
+import { useAuth } from 'src/hooks/useAuth'
 
 const PerfectScrollbar = styled(PerfectScrollbarComponent)<ScrollBarProps & { ref: Ref<unknown> }>(({ theme }) => ({
   padding: theme.spacing(5)
@@ -34,7 +32,14 @@ const PerfectScrollbar = styled(PerfectScrollbarComponent)<ScrollBarProps & { re
 
 const ChatLog = (props: ChatLogType) => {
   // ** Props
-  const { data, hidden } = props
+  const { chat, hidden } = props
+  
+  const {user } = useAuth()
+
+  useEffect(() => {
+    console.log('user', user);
+  }, [user])
+
 
   // ** Ref
   const chatArea = useRef(null)
@@ -55,12 +60,14 @@ const ChatLog = (props: ChatLogType) => {
   // ** Formats chat data based on sender
   const formattedChatData = () => {
     let chatLog: MessageType[] | [] = []
-    if (data.chat) {
-      chatLog = data.chat.chat
+    if (chat) {
+      chatLog = chat.chat
     }
+    console.log('chatLog', chatLog);
+    
 
     const formattedChatLog: FormattedChatsType[] = []
-    let chatMessageSenderId = chatLog[0] ? chatLog[0].senderId : 11
+    let chatMessageSenderId = chatLog[0] ? chatLog[0].senderId : "11"
     let msgGroup: MessageGroupType = {
       senderId: chatMessageSenderId,
       messages: []
@@ -70,7 +77,6 @@ const ChatLog = (props: ChatLogType) => {
         msgGroup.messages.push({
           time: msg.time,
           msg: msg.message,
-          feedback: msg.feedback
         })
       } else {
         chatMessageSenderId = msg.senderId
@@ -82,7 +88,6 @@ const ChatLog = (props: ChatLogType) => {
             {
               time: msg.time,
               msg: msg.message,
-              feedback: msg.feedback
             }
           ]
         }
@@ -91,46 +96,27 @@ const ChatLog = (props: ChatLogType) => {
       if (index === chatLog.length - 1) formattedChatLog.push(msgGroup)
     })
 
+    console.log('formattedChatLog', formattedChatLog);
+    
+
     return formattedChatLog
   }
 
-  const renderMsgFeedback = (isSender: boolean, feedback: MsgFeedbackType) => {
-    if (isSender) {
-      if (feedback.isSent && !feedback.isDelivered) {
-        return (
-          <Box component='span' sx={{ display: 'inline-flex', '& svg': { mr: 2, color: 'text.secondary' } }}>
-            <Icon icon='mdi:check' fontSize='1rem' />
-          </Box>
-        )
-      } else if (feedback.isSent && feedback.isDelivered) {
-        return (
-          <Box
-            component='span'
-            sx={{
-              display: 'inline-flex',
-              '& svg': { mr: 2, color: feedback.isSeen ? 'success.main' : 'text.secondary' }
-            }}
-          >
-            <Icon icon='mdi:check-all' fontSize='1rem' />
-          </Box>
-        )
-      } else {
-        return null
-      }
-    }
-  }
+ 
 
   useEffect(() => {
-    if (data && data.chat && data.chat.chat.length) {
+    if (chat && chat.chat.length) {
       scrollToBottom()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
+  }, [chat])
 
   // ** Renders user chat
   const renderChats = () => {
     return formattedChatData().map((item: FormattedChatsType, index: number) => {
-      const isSender = item.senderId === data.userContact.id
+      console.log('item', item);
+      
+      const isSender = item.senderId === user?._id
 
       return (
         <Box
@@ -144,7 +130,6 @@ const ChatLog = (props: ChatLogType) => {
           <div>
             <CustomAvatar
               skin='light'
-              color={data.contact.avatarColor ? data.contact.avatarColor : undefined}
               sx={{
                 width: '2rem',
                 height: '2rem',
@@ -152,26 +137,25 @@ const ChatLog = (props: ChatLogType) => {
                 ml: isSender ? 3.5 : undefined,
                 mr: !isSender ? 3.5 : undefined
               }}
-              {...(data.contact.avatar && !isSender
+              {...(!isSender
                 ? {
-                    src: data.contact.avatar,
-                    alt: data.contact.fullName
+                    src: 'https://via.placeholder.com/150',
+                    alt: 'User'
                   }
                 : {})}
               {...(isSender
                 ? {
-                    src: data.userContact.avatar,
-                    alt: data.userContact.fullName
+                    src: user?.avatar,
+                    alt: user?.firstName + ' ' + user?.lastName
                   }
                 : {})}
             >
-              {data.contact.avatarColor ? getInitials(data.contact.fullName) : null}
+              {getInitials(chat.title) }
             </CustomAvatar>
           </div>
 
           <Box className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
-            {item.messages.map((chat: ChatLogChatType, index: number, { length }: { length: number }) => {
-              const time = new Date(chat.time)
+            {item.messages.map((chat: ChatLogChatType, index: number ) => {
 
               return (
                 <Box key={index} sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
@@ -193,23 +177,7 @@ const ChatLog = (props: ChatLogType) => {
                       {chat.msg}
                     </Typography>
                   </div>
-                  {index + 1 === length ? (
-                    <Box
-                      sx={{
-                        mt: 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: isSender ? 'flex-end' : 'flex-start'
-                      }}
-                    >
-                      {renderMsgFeedback(isSender, chat.feedback)}
-                      <Typography variant='caption'>
-                        {time
-                          ? new Date(time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-                          : null}
-                      </Typography>
-                    </Box>
-                  ) : null}
+                 
                 </Box>
               )
             })}

@@ -8,11 +8,10 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 
 // ** Store & Actions Imports
 import { useDispatch, useSelector } from 'react-redux'
-import { sendMsg, selectChat, fetchUserProfile, fetchChatsContacts, removeSelectedChat } from 'src/store/apps/chat'
+import { sendMsg, selectChat, fetchChatsContacts, removeSelectedChat } from 'src/store/apps/chat'
 
 // ** Types
 import { RootState, AppDispatch } from 'src/store'
-import { StatusObjType, StatusType } from 'src/types/apps/chat'
 
 // ** Hooks
 import { useSettings } from 'src/@core/hooks/useSettings'
@@ -27,7 +26,6 @@ import ChatContent from 'src/views/pages/chat/ChatContent'
 
 const AppChat = () => {
   // ** States
-  const [userStatus, setUserStatus] = useState<StatusType>('online')
   const [leftSidebarOpen, setLeftSidebarOpen] = useState<boolean>(false)
   const [userProfileLeftOpen, setUserProfileLeftOpen] = useState<boolean>(false)
   const [userProfileRightOpen, setUserProfileRightOpen] = useState<boolean>(false)
@@ -44,15 +42,9 @@ const AppChat = () => {
   const smAbove = useMediaQuery(theme.breakpoints.up('sm'))
   const sidebarWidth = smAbove ? 370 : 300
   const mdAbove = useMediaQuery(theme.breakpoints.up('md'))
-  const statusObj: StatusObjType = {
-    busy: 'error',
-    away: 'warning',
-    online: 'success',
-    offline: 'secondary'
-  }
-
+ 
   useEffect(() => {
-    dispatch(fetchUserProfile())
+    // dispatch(fetchUserProfile())
     dispatch(fetchChatsContacts())
   }, [dispatch])
 
@@ -79,12 +71,9 @@ const AppChat = () => {
         hidden={hidden}
         mdAbove={mdAbove}
         dispatch={dispatch}
-        statusObj={statusObj}
-        userStatus={userStatus}
         selectChat={selectChat}
         getInitials={getInitials}
         sidebarWidth={sidebarWidth}
-        setUserStatus={setUserStatus}
         leftSidebarOpen={leftSidebarOpen}
         removeSelectedChat={removeSelectedChat}
         userProfileLeftOpen={userProfileLeftOpen}
@@ -92,23 +81,22 @@ const AppChat = () => {
         handleLeftSidebarToggle={handleLeftSidebarToggle}
         handleUserProfileLeftSidebarToggle={handleUserProfileLeftSidebarToggle}
       />
-      <ChatContent
+      {/* <ChatContent
         store={store}
         hidden={hidden}
         sendMsg={sendMsg}
         mdAbove={mdAbove}
         dispatch={dispatch}
-        statusObj={statusObj}
         getInitials={getInitials}
         sidebarWidth={sidebarWidth}
-        userProfileRightOpen={userProfileRightOpen}
         handleLeftSidebarToggle={handleLeftSidebarToggle}
         handleUserProfileRightSidebarToggle={handleUserProfileRightSidebarToggle}
-      />
+      /> */}
     </Box>
   )
 }
 
 AppChat.contentHeightFixed = true
+AppChat.authGuard = true
 
 export default AppChat

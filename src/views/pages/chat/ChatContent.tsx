@@ -1,8 +1,5 @@
-// ** React Imports
-import { Fragment } from 'react'
 
-// ** MUI Imports
-import Badge from '@mui/material/Badge'
+
 import MuiAvatar from '@mui/material/Avatar'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
@@ -16,8 +13,6 @@ import Icon from 'src/@core/components/icon'
 import ChatLog from './ChatLog'
 import SendMsgForm from 'src/views/pages/chat/SendMsgForm'
 import CustomAvatar from 'src/@core/components/mui/avatar'
-import OptionsMenu from 'src/@core/components/option-menu'
-import UserProfileRight from 'src/views/pages/chat/UserProfileRight'
 
 // ** Types
 import { ChatContentType } from 'src/types/apps/chat'
@@ -42,12 +37,8 @@ const ChatContent = (props: ChatContentType) => {
     sendMsg,
     mdAbove,
     dispatch,
-    statusObj,
     getInitials,
-    sidebarWidth,
-    userProfileRightOpen,
     handleLeftSidebarToggle,
-    handleUserProfileRightSidebarToggle
   } = props
 
   const handleStartConversation = () => {
@@ -124,58 +115,30 @@ const ChatContent = (props: ChatContentType) => {
                   </IconButton>
                 )}
                 <Box
-                  onClick={handleUserProfileRightSidebarToggle}
-                  sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+                  sx={{ display: 'flex', alignItems: 'center' }}
                 >
-                  <Badge
-                    overlap='circular'
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'right'
-                    }}
-                    sx={{ mr: 3 }}
-                    badgeContent={
-                      <Box
-                        component='span'
-                        sx={{
-                          width: 8,
-                          height: 8,
-                          borderRadius: '50%',
-                          color: `${statusObj[selectedChat.contact.status]}.main`,
-                          boxShadow: theme => `0 0 0 2px ${theme.palette.background.paper}`,
-                          backgroundColor: `${statusObj[selectedChat.contact.status]}.main`
-                        }}
-                      />
-                    }
-                  >
-                    {selectedChat.contact.avatar ? (
-                      <MuiAvatar
-                        src={selectedChat.contact.avatar}
-                        alt={selectedChat.contact.fullName}
-                        sx={{ width: '2.375rem', height: '2.375rem' }}
-                      />
-                    ) : (
+                  <Box sx={{mr:3}}>
+                    
                       <CustomAvatar
                         skin='light'
-                        color={selectedChat.contact.avatarColor}
                         sx={{ width: '2.375rem', height: '2.375rem', fontSize: '1rem' }}
                       >
-                        {getInitials(selectedChat.contact.fullName)}
+                        {getInitials(selectedChat.title)}
                       </CustomAvatar>
-                    )}
-                  </Badge>
+                    
+                  </Box>
                   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <Typography sx={{ fontWeight: 500, fontSize: '0.875rem' }}>
-                      {selectedChat.contact.fullName}
+                      {selectedChat.title}
                     </Typography>
                     <Typography variant='caption' sx={{ color: 'text.disabled' }}>
-                      {selectedChat.contact.role}
+                      {selectedChat.title}
                     </Typography>
                   </Box>
                 </Box>
               </Box>
 
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              {/* <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 {mdAbove ? (
                   <Fragment>
                     <IconButton size='small' sx={{ color: 'text.secondary' }}>
@@ -196,16 +159,16 @@ const ChatContent = (props: ChatContentType) => {
                   iconButtonProps={{ size: 'small', sx: { color: 'text.secondary' } }}
                   options={['View Contact', 'Mute Notifications', 'Block Contact', 'Clear Chat', 'Report']}
                 />
-              </Box>
+              </Box> */}
             </Box>
 
-            {selectedChat && store.userProfile ? (
-              <ChatLog hidden={hidden} data={{ ...selectedChat, userContact: store.userProfile }} />
-            ) : null}
+            {/* {selectedChat  ? (
+              <ChatLog hidden={hidden} chat={selectedChat} />
+            ) : null} */}
 
             <SendMsgForm store={store} dispatch={dispatch} sendMsg={sendMsg} />
 
-            <UserProfileRight
+            {/* <UserProfileRight
               store={store}
               hidden={hidden}
               statusObj={statusObj}
@@ -213,7 +176,7 @@ const ChatContent = (props: ChatContentType) => {
               sidebarWidth={sidebarWidth}
               userProfileRightOpen={userProfileRightOpen}
               handleUserProfileRightSidebarToggle={handleUserProfileRightSidebarToggle}
-            />
+            /> */}
           </Box>
         )
       }
