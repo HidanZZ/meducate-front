@@ -6,25 +6,21 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
-
 // ** Third Party Components
 import PerfectScrollbarComponent, { ScrollBarProps } from 'react-perfect-scrollbar'
 
 // ** Custom Components Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
+import dotAnimation from '../../../../public/lottie/50817-three-dots.json'
 
 // ** Utils Imports
 import { getInitials } from 'src/@core/utils/get-initials'
+import Lottie from 'lottie-react'
 
 // ** Types Imports
-import {
-  ChatLogType,
-  MessageType,
-  ChatLogChatType,
-  MessageGroupType,
-  FormattedChatsType
-} from 'src/types/apps/chat'
+import { ChatLogType, MessageType, ChatLogChatType, MessageGroupType, FormattedChatsType } from 'src/types/apps/chat'
 import { useAuth } from 'src/hooks/useAuth'
+import { useSelector } from 'react-redux'
 
 const PerfectScrollbar = styled(PerfectScrollbarComponent)<ScrollBarProps & { ref: Ref<unknown> }>(({ theme }) => ({
   padding: theme.spacing(5)
@@ -33,11 +29,10 @@ const PerfectScrollbar = styled(PerfectScrollbarComponent)<ScrollBarProps & { re
 const ChatLog = (props: ChatLogType) => {
   // ** Props
   const { chat, hidden } = props
-  
-  const {user } = useAuth()
 
+  const { user } = useAuth()
 
-
+  const { aiStatus } = useSelector((state: any) => state.chat)
 
   // ** Ref
   const chatArea = useRef(null)
@@ -61,11 +56,9 @@ const ChatLog = (props: ChatLogType) => {
     if (chat) {
       chatLog = chat.messages
     }
-    
-    
 
     const formattedChatLog: FormattedChatsType[] = []
-    let chatMessageSenderId = chatLog[0] ? chatLog[0].senderId : "11"
+    let chatMessageSenderId = chatLog[0] ? chatLog[0].senderId : '11'
     let msgGroup: MessageGroupType = {
       senderId: chatMessageSenderId,
       messages: []
@@ -74,7 +67,7 @@ const ChatLog = (props: ChatLogType) => {
       if (chatMessageSenderId === msg.senderId) {
         msgGroup.messages.push({
           time: msg.time,
-          msg: msg.message,
+          msg: msg.message
         })
       } else {
         chatMessageSenderId = msg.senderId
@@ -85,7 +78,7 @@ const ChatLog = (props: ChatLogType) => {
           messages: [
             {
               time: msg.time,
-              msg: msg.message,
+              msg: msg.message
             }
           ]
         }
@@ -94,13 +87,8 @@ const ChatLog = (props: ChatLogType) => {
       if (index === chatLog.length - 1) formattedChatLog.push(msgGroup)
     })
 
-    
-    
-
     return formattedChatLog
   }
-
- 
 
   useEffect(() => {
     if (chat && chat.messages.length) {
@@ -111,73 +99,119 @@ const ChatLog = (props: ChatLogType) => {
 
   // ** Renders user chat
   const renderChats = () => {
-    return formattedChatData().map((item: FormattedChatsType, index: number) => {
-      
-      
-      const isSender = item.senderId === user?._id
+    return (
+      <>
+        {formattedChatData().map((item: FormattedChatsType, index: number) => {
+          const isSender = item.senderId === user?._id
 
-      return (
-        <Box
-          key={index}
-          sx={{
-            display: 'flex',
-            flexDirection: !isSender ? 'row' : 'row-reverse',
-            mb: index !== formattedChatData().length - 1 ? 4 : undefined
-          }}
-        >
-          <div>
-            <CustomAvatar
-              skin='light'
+          return (
+            <Box
+              key={index}
               sx={{
-                width: '2rem',
-                height: '2rem',
-                fontSize: '0.875rem',
-                ml: isSender ? 3.5 : undefined,
-                mr: !isSender ? 3.5 : undefined
+                display: 'flex',
+                flexDirection: !isSender ? 'row' : 'row-reverse',
+                mb: index !== formattedChatData().length - 1 ? 4 : undefined
               }}
-             
-              {...(isSender
-                ? {
-                    src: user?.avatar,
-                    alt: user?.firstName + ' ' + user?.lastName
-                  }
-                : {})}
             >
-              {getInitials(chat.title) }
-            </CustomAvatar>
-          </div>
+              <div>
+                <CustomAvatar
+                  skin='light'
+                  sx={{
+                    width: '2rem',
+                    height: '2rem',
+                    fontSize: '0.875rem',
+                    ml: isSender ? 3.5 : undefined,
+                    mr: !isSender ? 3.5 : undefined
+                  }}
+                  {...(isSender
+                    ? {
+                        src: user?.avatar,
+                        alt: user?.firstName + ' ' + user?.lastName
+                      }
+                    : {})}
+                >
+                  {getInitials(chat.title)}
+                </CustomAvatar>
+              </div>
 
-          <Box className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
-            {item.messages.map((chat: ChatLogChatType, index: number ) => {
+              <Box className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
+                {item.messages.map((chat: ChatLogChatType, index: number) => {
+                  return (
+                    <Box key={index} sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
+                      <div>
+                        <Typography
+                          sx={{
+                            boxShadow: 1,
+                            borderRadius: 1,
+                            width: 'fit-content',
+                            fontSize: '0.875rem',
+                            p: theme => theme.spacing(3, 4),
+                            ml: isSender ? 'auto' : undefined,
+                            borderTopLeftRadius: !isSender ? 0 : undefined,
+                            borderTopRightRadius: isSender ? 0 : undefined,
+                            color: isSender ? 'common.white' : 'text.primary',
+                            backgroundColor: isSender ? 'primary.main' : 'background.paper'
+                          }}
+                        >
+                          {chat.msg}
+                        </Typography>
+                      </div>
+                    </Box>
+                  )
+                })}
+              </Box>
+            </Box>
+          )
+        })}
+        {aiStatus === 'pending' && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              mb: 4
+            }}
+          >
+            <div>
+              <CustomAvatar
+                skin='light'
+                sx={{
+                  width: '2rem',
+                  height: '2rem',
+                  fontSize: '0.875rem',
+                  ml: 3.5,
+                  mr: undefined
+                }}
+              >
+                {getInitials(chat.title)}
+              </CustomAvatar>
+            </div>
 
-              return (
-                <Box key={index} sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
-                  <div>
-                    <Typography
-                      sx={{
-                        boxShadow: 1,
-                        borderRadius: 1,
-                        width: 'fit-content',
-                        fontSize: '0.875rem',
-                        p: theme => theme.spacing(3, 4),
-                        ml: isSender ? 'auto' : undefined,
-                        borderTopLeftRadius: !isSender ? 0 : undefined,
-                        borderTopRightRadius: isSender ? 0 : undefined,
-                        color: isSender ? 'common.white' : 'text.primary',
-                        backgroundColor: isSender ? 'primary.main' : 'background.paper'
+            <Box className='chat-body' sx={{ maxWidth: ['calc(100% - 5.75rem)', '75%', '65%'] }}>
+              <Box sx={{ '&:not(:last-of-type)': { mb: 3.5 } }}>
+                <div>
+                  <Box
+                    mb={2}
+                    sx={{
+                      p: 1,
+                      backgroundColor: 'grey.100',
+                      mr: 'auto',
+                      maxWidth: '320px'
+                    }}
+                  >
+                    <Lottie
+                      animationData={dotAnimation}
+                      style={{
+                        flex: 1
                       }}
-                    >
-                      {chat.msg}
-                    </Typography>
-                  </div>
-                 
-                </Box>
-              )
-            })}
+                    />
+                  </Box>
+                </div>
+              </Box>
+            </Box>
           </Box>
-        </Box>
-      )
-    })
+        )}
+      </>
+    )
   }
 
   const ScrollWrapper = ({ children }: { children: ReactNode }) => {

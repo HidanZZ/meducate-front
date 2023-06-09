@@ -31,6 +31,15 @@ class ChatService {
       throw err
     }
   }
+  static async getAiResponse(chatId: string) {
+    try {
+      const response = await apiClient.get<SendMsgResponse>('/chats/get-ai-response/' + chatId)
+
+      return response.data
+    } catch (err: any) {
+      throw err
+    }
+  }
 }
 
 export default ChatService
