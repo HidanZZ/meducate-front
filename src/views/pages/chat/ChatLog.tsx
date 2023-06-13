@@ -12,6 +12,7 @@ import PerfectScrollbarComponent, { ScrollBarProps } from 'react-perfect-scrollb
 // ** Custom Components Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import dotAnimation from '../../../../public/lottie/50817-three-dots.json'
+import ReactMarkdown from 'react-markdown'
 
 // ** Utils Imports
 import { getInitials } from 'src/@core/utils/get-initials'
@@ -25,6 +26,7 @@ import { useSelector } from 'react-redux'
 const PerfectScrollbar = styled(PerfectScrollbarComponent)<ScrollBarProps & { ref: Ref<unknown> }>(({ theme }) => ({
   padding: theme.spacing(5)
 }))
+
 
 const ChatLog = (props: ChatLogType) => {
   // ** Props
@@ -153,7 +155,7 @@ const ChatLog = (props: ChatLogType) => {
                             backgroundColor: isSender ? 'primary.main' : 'background.paper'
                           }}
                         >
-                          {chat.msg}
+                          {isSender ? chat.msg : <ReactMarkdown >{chat.msg}</ReactMarkdown>}
                         </Typography>
                       </div>
                     </Box>
