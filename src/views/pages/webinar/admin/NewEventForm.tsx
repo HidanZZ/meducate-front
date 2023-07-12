@@ -60,7 +60,7 @@ interface NewEventFormProps {
   onSubmit: (data: FormData) => void;
 }
 
-const NewEventForm: React.FC<NewEventFormProps> = ({ open, onClose, onSubmit }) => {
+const NewEventForm: React.FC<NewEventFormProps> = ({ open, onClose }) => {
   const {
     control,
     handleSubmit,
@@ -77,6 +77,7 @@ const NewEventForm: React.FC<NewEventFormProps> = ({ open, onClose, onSubmit }) 
         speaker: {
           firstName: data.firstName,
           lastName: data.lastName,
+
           //picture: data.picture,
           company: data.company,
           jobTitle: data.jobTitle,

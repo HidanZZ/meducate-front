@@ -73,7 +73,8 @@ const WebinarList = () => {
     };
 
     const addWebinar = (data: FormData) => {
-        
+      //TODO: add webinar to database
+        return data
     };
 
     const editWebinar = (data: WebinarData) => {
