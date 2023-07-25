@@ -8,11 +8,7 @@ const navigation = (): VerticalNavItemsType => {
       path: '/home',
       icon: 'mdi:home-outline'
     },
-    {
-      title: 'Dashboard',
-      path: '/dashboard',
-      icon: 'mdi:view-dashboard-outline'
-    },
+
     {
       title: 'Second Page',
       path: '/second-page',
@@ -44,10 +40,6 @@ const navigation = (): VerticalNavItemsType => {
         {
           title: 'schedule',
           path: '/apps/webinar/schedule'
-        },
-        {
-          title: 'Speakers',
-          path: '/apps/webinar/speakers'
         }
       ]
     },

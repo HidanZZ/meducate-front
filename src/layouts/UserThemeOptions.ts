@@ -19,7 +19,7 @@ const UserThemeOptions = (): ThemeOptions => {
 
   return {
     typography: {
-      fontFamily: '"Roboto", sans-serif'
+      fontFamily: "'Plus Jakarta Sans', sans-serif;"
     },
     palette: {
       primary: {

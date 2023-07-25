@@ -3,57 +3,61 @@ import { Theme } from '@mui/material/styles'
 
 const Typography = (theme: Theme) => {
   return {
-    fontFamily: '"Roboto", sans-serif',
+    fontFamily: "'Plus Jakarta Sans', sans-serif;",
     h1: {
-      fontWeight: 500,
-      letterSpacing: '-1.5px',
-      color: theme.palette.text.primary
+      fontWeight: 600,
+      fontSize: '2.25rem',
+      lineHeight: '2.75'
     },
     h2: {
-      fontWeight: 500,
-      letterSpacing: '-0.5px',
-      color: theme.palette.text.primary
+      fontWeight: 600,
+      fontSize: '1.875rem',
+      lineHeight: '2.25'
     },
     h3: {
-      fontWeight: 500,
-      letterSpacing: 0,
-      color: theme.palette.text.primary
+      fontWeight: 600,
+      fontSize: '1.5rem',
+      lineHeight: '1.75'
     },
     h4: {
-      fontWeight: 500,
-      letterSpacing: '0.25px',
-      color: theme.palette.text.primary
+      fontWeight: 600,
+      fontSize: '1.3125rem',
+      lineHeight: '1.6'
     },
     h5: {
-      fontWeight: 500,
-      letterSpacing: 0,
-      color: theme.palette.text.primary
+      fontWeight: 600,
+      fontSize: '1.125rem',
+      lineHeight: '1.6'
     },
     h6: {
-      letterSpacing: '0.15px',
-      color: theme.palette.text.primary
-    },
-    subtitle1: {
-      letterSpacing: '0.15px',
-      color: theme.palette.text.primary
-    },
-    subtitle2: {
-      letterSpacing: '0.1px',
-      color: theme.palette.text.secondary
-    },
-    body1: {
-      letterSpacing: '0.15px',
-      color: theme.palette.text.primary
-    },
-    body2: {
-      lineHeight: 1.5,
-      letterSpacing: '0.15px',
-      color: theme.palette.text.secondary
+      fontWeight: 600,
+      fontSize: '1rem',
+      lineHeight: '1.2'
     },
     button: {
-      letterSpacing: '0.3px',
-      color: theme.palette.text.primary
+      textTransform: 'capitalize',
+      fontWeight: 400
     },
+    body1: {
+      fontSize: '0.875rem',
+      fontWeight: 400,
+      lineHeight: '1.334'
+    },
+    body2: {
+      fontSize: '0.75rem',
+      letterSpacing: '0rem',
+      fontWeight: 400,
+      lineHeight: '1'
+    },
+    subtitle1: {
+      fontSize: '0.875rem',
+      fontWeight: 400
+    },
+    subtitle2: {
+      fontSize: '0.875rem',
+      fontWeight: 400
+    },
+
     caption: {
       letterSpacing: '0.4px',
       color: theme.palette.text.secondary
