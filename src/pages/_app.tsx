@@ -90,9 +90,6 @@ if (themeConfig.routingLoader) {
 }
 
 const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
-  
-  
-
   if (authGuard) {
     return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
   } else if (!guestGuard && !authGuard) {
@@ -117,7 +114,6 @@ const App = (props: ExtendedAppProps) => {
 
   const guestGuard = Component.guestGuard ?? true
   const aclAbilities = Component.acl ?? defaultACLObj
-
 
   return (
     <Provider store={store}>

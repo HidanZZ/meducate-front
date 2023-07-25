@@ -13,10 +13,7 @@ const Home = () => {
   const theme = useTheme()
   const router = useRouter()
   const getRandomColor = () => {
-    const colors = [
-      theme.palette.primary.main,
-      theme.palette.secondary.main
-    ]
+    const colors = [theme.palette.primary.main, theme.palette.secondary.main]
 
     return colors[Math.floor(Math.random() * colors.length)]
   }
@@ -68,7 +65,7 @@ const Home = () => {
       py={16}
       px={{ xs: 6, md: 16, lg: 32 }}
       sx={{
-        height: '100vh',
+        height: '100vh'
       }}
       display={'flex'}
       flexDirection={'column'}
@@ -87,21 +84,21 @@ const Home = () => {
         animate={{ opacity: 1, x: 0 }}
       >
         <Badge
-        overlap='circular'
-        onClick={handleRedirect}
-        sx={{ ml: 2, cursor: 'pointer' }}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right'
-        }}
-      >
-        <Avatar
-          alt='John Doe'
+          overlap='circular'
           onClick={handleRedirect}
-          sx={{ width: 64, height: 64 }}
-          src='/images/avatars/user.png'
-        />
-      </Badge>
+          sx={{ ml: 2, cursor: 'pointer' }}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+        >
+          <Avatar
+            alt='John Doe'
+            onClick={handleRedirect}
+            sx={{ width: 64, height: 64 }}
+            src='/images/avatars/user.png'
+          />
+        </Badge>
       </Box>
 
       <Grid
