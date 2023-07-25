@@ -57,6 +57,11 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'solar:calendar-line-duotone'
     },
     {
+      title: 'Scientific Calendar',
+      path: '/scientific-calendar',
+      icon: 'solar:calendar-line-duotone'
+    },
+    {
       sectionTitle: 'Admin'
     },
     {
