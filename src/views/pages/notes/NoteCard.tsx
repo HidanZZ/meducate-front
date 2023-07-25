@@ -16,13 +16,25 @@ const NoteCard = ({ post }: any) => {
 
   return (
     <Grid item xs={12} lg={4} md={4} sm={6} display='flex' alignItems='stretch'>
-      <BlankCard className='hoverCard'>
+      <BlankCard className='hoverCard' sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 1
+      }}>
         <>
           <Typography component={NextLink} href={`/apps/notes/single`}>
             <CardMedia component='img' height='240' image={coverImg} alt='green iguana' />
           </Typography>
-          <CardContent>
-            <Stack direction='row' sx={{ marginTop: '-45px' }}>
+          <CardContent
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            flexGrow: 1
+          }}
+          >
+           <Box>
+             <Stack direction='row' sx={{ marginTop: '-45px' }}>
               <Tooltip title={author?.name} placement='top'>
                 <Avatar aria-label='recipe' src={author?.avatar}></Avatar>
               </Tooltip>
@@ -45,6 +57,7 @@ const NoteCard = ({ post }: any) => {
                 {title}
               </Typography>
             </Box>
+           </Box>
             <Stack direction='row' gap={3} alignItems='center'>
               <Stack direction='row' gap={1} alignItems='center'>
                 <Icon icon={'mdi:thumb-up-outline'} fontSize={18} /> {view}
