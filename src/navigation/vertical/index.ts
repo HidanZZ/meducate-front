@@ -18,6 +18,13 @@ const navigation = (): VerticalNavItemsType => {
       sectionTitle: 'Apps'
     },
     {
+      title: 'Notes',
+      path: '/apps/notes',
+      icon: 'mdi:note-outline',
+      subject: 'note-page',
+      action: 'read'
+    },
+    {
       title: 'Chat',
       path: '/apps/chat',
       icon: 'mdi:message-outline',
@@ -43,6 +50,7 @@ const navigation = (): VerticalNavItemsType => {
         }
       ]
     },
+
     {
       sectionTitle: 'Admin'
     },
