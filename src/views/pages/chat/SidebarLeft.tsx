@@ -113,7 +113,7 @@ const SidebarLeft = (props: ChatSidebarLeftType) => {
                   alignItems: 'flex-start',
                   ...(activeCondition && {
                     backgroundImage: theme =>
-                      `linear-gradient(98deg, ${theme.palette.customColors.primaryGradient}, ${theme.palette.primary.main} 94%)`
+                      `linear-gradient(98deg, ${theme.palette.primary.main}, ${theme.palette.primary.light} 94%)`
                   })
                 }}
               >

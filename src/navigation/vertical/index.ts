@@ -8,11 +8,7 @@ const navigation = (): VerticalNavItemsType => {
       path: '/home',
       icon: 'mdi:home-outline'
     },
-    {
-      title: 'Dashboard',
-      path: '/dashboard',
-      icon: 'mdi:view-dashboard-outline'
-    },
+
     {
       title: 'Second Page',
       path: '/second-page',
@@ -20,6 +16,13 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       sectionTitle: 'Apps'
+    },
+    {
+      title: 'Notes',
+      path: '/apps/notes',
+      icon: 'mdi:note-outline',
+      subject: 'note-page',
+      action: 'read'
     },
     {
       title: 'Chat',
@@ -44,12 +47,14 @@ const navigation = (): VerticalNavItemsType => {
         {
           title: 'schedule',
           path: '/apps/webinar/schedule'
-        },
-        {
-          title: 'Speakers',
-          path: '/apps/webinar/speakers'
         }
       ]
+    },
+
+    {
+      title: 'Scientific Calendar',
+      path: '/apps/scientific-calendar',
+      icon: 'solar:calendar-line-duotone'
     },
     {
       title: 'Scientific Calendar',

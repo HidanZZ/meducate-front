@@ -1,4 +1,5 @@
 // ** MUI Imports
+
 import { ThemeOptions } from '@mui/system'
 
 // ** To use core palette, uncomment the below import
@@ -19,20 +20,177 @@ const UserThemeOptions = (): ThemeOptions => {
 
   return {
     typography: {
-      fontFamily: '"Roboto", sans-serif'
+      fontFamily: "'Plus Jakarta Sans', sans-serif;"
     },
     palette: {
       primary: {
-        light: '#4381D3',
-        main: '#014BAC',
-        dark: '#003688',
+        light: '#3A7CEB',
+        main: '#004BDE',
+        dark: '#0039BE',
         contrastText: '#FFF'
       },
       secondary: {
-        light: '#FFE89F',
-        main: '#FED65D',
-        dark: '#D6AF3D',
-        contrastText: '#000'
+        light: '#FFDC3F',
+        main: '#FFCC00',
+        dark: '#DBAA00',
+        contrastText: '#FFF'
+      },
+      info: {
+        main: '#49BEFF',
+        light: '#E8F7FF',
+        dark: '#23afdb'
+      },
+      success: {
+        main: '#13DEB9',
+        light: '#E6FFFA',
+        dark: '#02b3a9',
+        contrastText: '#ffffff'
+      },
+      error: {
+        main: '#FA896B',
+        light: '#FDEDE8',
+        dark: '#f3704d',
+        contrastText: '#ffffff'
+      },
+      warning: {
+        main: '#FFAE1F',
+        light: '#FEF5E5',
+        dark: '#ae8e59',
+        contrastText: '#ffffff'
+      },
+      purple: {
+        A50: '#EBF3FE',
+        A100: '#6610f2',
+        A200: '#557fb9'
+      },
+      grey: {
+        100: '#F2F6FA',
+        200: '#EAEFF4',
+        300: '#DFE5EF',
+        400: '#7C8FAC',
+        500: '#5A6A85',
+        600: '#2A3547'
+      }
+    },
+    shape: {
+      borderRadius: 8
+    },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: {
+          '*': {
+            boxSizing: 'border-box'
+          },
+          html: {
+            height: '100%',
+            width: '100%'
+          },
+          a: {
+            textDecoration: 'none'
+          },
+          body: {
+            height: '100%',
+            margin: 0,
+            padding: 0
+          },
+          '#root': {
+            height: '100%'
+          },
+          "*[dir='rtl'] .buyNowImg": {
+            transform: 'scaleX(-1)'
+          },
+          '.border-none': {
+            border: '0px',
+            td: {
+              border: '0px'
+            }
+          },
+          '.btn-xs': {
+            minWidth: '30px !important',
+            width: '30px',
+            height: '30px',
+            borderRadius: '6px !important',
+            padding: '0px !important'
+          },
+          '.hover-text-primary:hover .text-hover': {
+            color: '#004BDE !important'
+          },
+          '.hoverCard:hover': {
+            scale: '1.01',
+            transition: ' 0.1s ease-in'
+          },
+          '.signup-bg': {
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            height: '100%'
+          },
+          '.MuiBox-root': {
+            borderRadius: '8px'
+          },
+          '.MuiCardHeader-action': {
+            alignSelf: 'center !important'
+          },
+          '.emoji-picker-react .emoji-scroll-wrapper': {
+            overflowX: 'hidden'
+          },
+          '.scrollbar-container': {
+            borderRight: '0 !important'
+          },
+          '.theme-timeline .MuiTimelineOppositeContent-root': {
+            minWidth: '90px'
+          },
+          '.MuiAlert-root .MuiAlert-icon': {
+            color: 'inherit!important'
+          },
+          '.MuiTimelineConnector-root': {
+            width: '1px !important'
+          },
+          ' .simplebar-scrollbar:before': {
+            background: `#DFE5EF !important`
+          },
+          '@keyframes gradient': {
+            '0%': {
+              backgroundPosition: '0% 50%'
+            },
+            '50%': {
+              backgroundPosition: ' 100% 50%'
+            },
+            '100% ': {
+              backgroundPosition: ' 0% 50%'
+            }
+          }
+        }
+      },
+      MuiFab: {
+        styleOverrides: {
+          root: {
+            boxShadow: 'none'
+          },
+          sizeSmall: {
+            width: 30,
+            height: 30,
+            minHeight: 30
+          }
+        }
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: '#DFE5EF'
+            },
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: '#DFE5EF'
+            }
+          },
+          input: {
+            padding: '12px 14px'
+          },
+          inputSizeSmall: {
+            padding: '8px 14px'
+          }
+        }
       }
     }
 
