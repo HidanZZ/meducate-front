@@ -96,7 +96,6 @@ const Home = () => {
             alt='John Doe'
             onClick={handleRedirect}
             sx={{ width: 64, height: 64 }}
-            src='/images/avatars/user.png'
           />
         </Badge>
       </Box>

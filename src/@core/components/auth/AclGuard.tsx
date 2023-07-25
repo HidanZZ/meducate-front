@@ -31,10 +31,10 @@ const AclGuard = (props: AclGuardProps) => {
 
   // ** Hooks
   const auth = useAuth()
+  console.log('auth', auth)
   
-
-  if (auth.user && auth.user.role && !ability) {
-    setAbility(buildAbilityFor(auth.user.role, aclAbilities.subject))
+  if (auth.user  && !ability) {
+    setAbility(buildAbilityFor("user", aclAbilities.subject))
   }
 
   if (authGuard) {

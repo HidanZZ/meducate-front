@@ -61,7 +61,7 @@ const SendMsgForm = (props: SendMsgComponentType) => {
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
          
-          <Button type='submit' variant='contained' color='secondary'>
+          <Button type='submit' variant='contained' color='primary'>
             Send
           </Button>
         </Box>

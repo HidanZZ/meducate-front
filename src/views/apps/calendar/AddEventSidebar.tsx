@@ -320,6 +320,7 @@ const AddEventSidebar = (props: AddEventSidebarType) => {
                       readOnly: true
                     }}
                     readOnly
+
                     // checked={values.allDay}
                     checked={false}
                     onChange={e => setValues({ ...values, allDay: e.target.checked })}

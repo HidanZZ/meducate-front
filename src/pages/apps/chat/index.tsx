@@ -35,7 +35,7 @@ const AppChat = () => {
   const { settings } = useSettings()
   const dispatch = useDispatch<AppDispatch>()
   const hidden = useMediaQuery(theme.breakpoints.down('lg'))
-  const store = useSelector((state: RootState) => state.chat)
+  const store : any = useSelector((state: RootState) => state.chat)
 
   // ** Vars
   const { skin } = settings

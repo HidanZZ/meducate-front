@@ -102,7 +102,7 @@ const UserDropdown = (props: Props) => {
           alt='User'
           onClick={handleDropdownOpen}
           sx={{ width: 40, height: 40 }}
-          src={user?.avatar??'/images/avatars/user.png'}
+          src={user?.image}
         />
       </Badge>):
       (<Badge
@@ -118,7 +118,6 @@ const UserDropdown = (props: Props) => {
           alt='John Doe'
           onClick={handleRedirect}
           sx={{ width: 40, height: 40 }}
-          src='/images/avatars/user.png'
         />
       </Badge>)
       }
@@ -141,7 +140,7 @@ const UserDropdown = (props: Props) => {
               }}
             >
               <Avatar alt='User' 
-              src={user?.avatar??'/images/avatars/user.png'}
+              src={user?.image}
               sx={{ width: '2.5rem', height: '2.5rem' }} />
             </Badge>
             <Box sx={{ display: 'flex', ml: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
@@ -160,7 +159,7 @@ const UserDropdown = (props: Props) => {
           </Box>
         </MenuItem>
         
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
+        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/account-settings/account')}>
           <Box sx={styles}>
             <Icon icon='mdi:cog-outline' />
             Settings

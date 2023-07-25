@@ -44,6 +44,10 @@ const GlobalStyles = (theme: Theme) => {
     '.MuiGrid-container.match-height .MuiCard-root': {
       height: '100%'
     },
+    '.hoverCard:hover': {
+      scale: '1.01',
+      transition: ' 0.1s ease-in'
+    },
     '.ps__rail-y': {
       zIndex: 1,
       right: '0 !important',

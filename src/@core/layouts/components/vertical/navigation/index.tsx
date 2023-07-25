@@ -69,8 +69,7 @@ const Navigation = (props: Props) => {
 
   // ** Ref
   const shadowRef = useRef(null)
-  
-  
+
   // ** Hooks
   const theme = useTheme()
 
@@ -139,7 +138,7 @@ const Navigation = (props: Props) => {
       {(beforeVerticalNavMenuContentPosition === 'static' || !beforeNavMenuContent) && (
         <StyledBoxForShadow ref={shadowRef} sx={{ background: shadowBgColor() }} />
       )}
-      <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+      <Box sx={{ position: 'relative', overflow: 'hidden',mt:6 }}>
         {/* @ts-ignore */}
         <ScrollWrapper
           {...(hidden

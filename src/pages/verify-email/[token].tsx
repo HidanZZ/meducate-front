@@ -85,7 +85,8 @@ export const getServerSideProps = async ({ params }: { params: { token: string }
         }
 
     }catch(err:any){
-        //if forbidden redirect to 404
+        console.log(err.response.status);
+        
         
         if(err.response.status === 403){
             return {

@@ -18,6 +18,7 @@ export type ACLObj = {
  */
 const defineRulesFor = (role: string, subject: string) => {
   const { can, rules } = new AbilityBuilder(AppAbility)
+  console.log('ACL -> defineRulesFor -> role', role)
 
   if (role === 'user') {
     can('manage', 'all')
