@@ -47,14 +47,16 @@ const NoteCard = ({ post }: any) => {
             </Box>
             <Stack direction='row' gap={3} alignItems='center'>
               <Stack direction='row' gap={1} alignItems='center'>
-                <Icon icon={'mdi:eye'} /> {view}
+                <Icon icon={'mdi:thumb-up-outline'} fontSize={18} /> {view}
               </Stack>
               <Stack direction='row' gap={1} alignItems='center'>
-                <Icon icon='mdi:message-reply-text' /> {comments?.length}
+                <Icon icon='mdi:comment-text-outline' fontSize={18} /> {comments?.length}
               </Stack>
 
               <Stack direction='row' ml='auto' alignItems='center'>
-                <Icon icon='circle-outline' />
+                <Icon icon='mdi:circle-outline' fontSize={10} style={{
+                    marginRight: '5px'
+                }}  />
                 <small>{format(new Date(createdAt), 'E, MMM d')}</small>
               </Stack>
             </Stack>
