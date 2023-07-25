@@ -9,16 +9,16 @@ import BlankCard from 'src/views/shared/BlankCard'
 const NoteCard = ({ post }: any) => {
   const { coverImg, title, view, comments, category, author, createdAt }: any = post
 
-  const linkTo = title
-    .toLowerCase()
-    .replace(/ /g, '-')
-    .replace(/[^\w-]+/g, '')
+//   const linkTo = title
+//     .toLowerCase()
+//     .replace(/ /g, '-')
+//     .replace(/[^\w-]+/g, '')
 
   return (
     <Grid item xs={12} lg={4} md={4} sm={6} display='flex' alignItems='stretch'>
       <BlankCard className='hoverCard'>
         <>
-          <Typography component={NextLink} href={`/apps/blog/detail/${linkTo}`}>
+          <Typography component={NextLink} href={`/apps/notes/single`}>
             <CardMedia component='img' height='240' image={coverImg} alt='green iguana' />
           </Typography>
           <CardContent>
@@ -40,7 +40,7 @@ const NoteCard = ({ post }: any) => {
                 color='inherit'
                 sx={{ textDecoration: 'none' }}
                 component={NextLink}
-                href={`/apps/blog/detail/${linkTo}`}
+                href={`/apps/notes/single`}
               >
                 {title}
               </Typography>
