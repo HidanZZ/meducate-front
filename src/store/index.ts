@@ -6,6 +6,7 @@ import verification from './apps/verification'
 import dashboard from './apps/dashboard'
 import organization from './apps/organization'
 import chat from './apps/chat'
+import calendar from 'src/store/apps/calendar'
 
 // ** Reducers
 
@@ -14,6 +15,7 @@ export const store = configureStore({
     countries,
     register,
     verification,
+    calendar,
     dashboard,
     organization,
     chat
