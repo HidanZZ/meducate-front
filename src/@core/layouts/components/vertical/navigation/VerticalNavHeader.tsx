@@ -82,7 +82,7 @@ const VerticalNavHeader = (props: Props) => {
   const MenuUnlockedIcon = () => userMenuUnlockedIcon || <Icon icon='mdi:radiobox-blank' />
 
   return (
-    <MenuHeaderWrapper className='nav-header' sx={{ pl: menuHeaderPaddingLeft() }}>
+    <MenuHeaderWrapper className='nav-header' sx={{ pl: menuHeaderPaddingLeft() , my:3}}>
       {userNavMenuBranding ? (
         userNavMenuBranding(props)
       ) : (

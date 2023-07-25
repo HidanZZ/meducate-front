@@ -13,7 +13,7 @@ const BlankCard = ({ children, className, sx }: Props) => {
 
   return (
     <Card
-      sx={{ p: 0, border: `1px solid ${borderColor}`, position: 'relative', sx }}
+      sx={{ p: 0, border: `1px solid ${borderColor}`, position: 'relative', ...sx }}
       className={className}
       elevation={9}
       variant={'outlined'}

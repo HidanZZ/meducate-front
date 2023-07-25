@@ -9,32 +9,34 @@ import BlankCard from 'src/views/shared/BlankCard'
 const NoteCard = ({ post }: any) => {
   const { coverImg, title, view, comments, category, author, createdAt }: any = post
 
-//   const linkTo = title
-//     .toLowerCase()
-//     .replace(/ /g, '-')
-//     .replace(/[^\w-]+/g, '')
+  //   const linkTo = title
+  //     .toLowerCase()
+  //     .replace(/ /g, '-')
+  //     .replace(/[^\w-]+/g, '')
 
   return (
     <Grid item xs={12} lg={4} md={4} sm={6} display='flex' alignItems='stretch'>
-      <BlankCard className='hoverCard' sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        flexGrow: 1
-      }}>
-        <>
-          <Typography component={NextLink} href={`/apps/notes/single`}>
-            <CardMedia component='img' height='240' image={coverImg} alt='green iguana' />
-          </Typography>
-          <CardContent
+      <BlankCard
+        className='hoverCard'
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1
+        }}
+      >
+        <Typography component={NextLink} href={`/apps/notes/single`}>
+          <CardMedia component='img' height='240' image={coverImg} alt='green iguana' />
+        </Typography>
+        <CardContent
           sx={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
             flexGrow: 1
           }}
-          >
-           <Box>
-             <Stack direction='row' sx={{ marginTop: '-45px' }}>
+        >
+          <Box>
+            <Stack direction='row' sx={{ marginTop: '-45px' }}>
               <Tooltip title={author?.name} placement='top'>
                 <Avatar aria-label='recipe' src={author?.avatar}></Avatar>
               </Tooltip>
@@ -57,24 +59,27 @@ const NoteCard = ({ post }: any) => {
                 {title}
               </Typography>
             </Box>
-           </Box>
-            <Stack direction='row' gap={3} alignItems='center'>
-              <Stack direction='row' gap={1} alignItems='center'>
-                <Icon icon={'mdi:thumb-up-outline'} fontSize={18} /> {view}
-              </Stack>
-              <Stack direction='row' gap={1} alignItems='center'>
-                <Icon icon='mdi:comment-text-outline' fontSize={18} /> {comments?.length}
-              </Stack>
-
-              <Stack direction='row' ml='auto' alignItems='center'>
-                <Icon icon='mdi:circle-outline' fontSize={10} style={{
-                    marginRight: '5px'
-                }}  />
-                <small>{format(new Date(createdAt), 'E, MMM d')}</small>
-              </Stack>
+          </Box>
+          <Stack direction='row' gap={3} alignItems='center'>
+            <Stack direction='row' gap={1} alignItems='center'>
+              <Icon icon={'mdi:thumb-up-outline'} fontSize={18} /> {view}
             </Stack>
-          </CardContent>
-        </>
+            <Stack direction='row' gap={1} alignItems='center'>
+              <Icon icon='mdi:comment-text-outline' fontSize={18} /> {comments?.length}
+            </Stack>
+
+            <Stack direction='row' ml='auto' alignItems='center'>
+              <Icon
+                icon='mdi:circle-outline'
+                fontSize={10}
+                style={{
+                  marginRight: '5px'
+                }}
+              />
+              <small>{format(new Date(createdAt), 'E, MMM d')}</small>
+            </Stack>
+          </Stack>
+        </CardContent>
       </BlankCard>
     </Grid>
   )
