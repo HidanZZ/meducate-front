@@ -1,6 +1,3 @@
-// ** React Imports
-import { useState } from 'react'
-
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -9,13 +6,6 @@ import CardContent from '@mui/material/CardContent'
 
 // ** Icon Imports
 const CardRelatedMedicine = () => {
-  // ** State
-  const [collapse, setCollapse] = useState<boolean>(false)
-
-  // const handleClick = () => {
-  //   setCollapse(!collapse)
-  // }
-
   return (
     <Card>
           <CardContent>
