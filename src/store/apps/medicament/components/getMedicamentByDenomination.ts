@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import MedicamentService from 'src/services/medicaments'
 
 type State = {
-  medicament: String
+  medicament: string
   status: 'idle' | 'loading' | 'succeeded' | 'failed'
   error: string | null | undefined | { [key: string]: string[] }
 }
@@ -14,7 +14,7 @@ const initialState: State = {
 }
 
 // Thunk
-export const getByDenomination = createAsyncThunk('medicaments/getByDenomination', async (nom:String,{ rejectWithValue }) => {
+export const getByDenomination = createAsyncThunk('medicaments/getByDenomination', async (nom:string,{ rejectWithValue }) => {
     try {
       const response = await MedicamentService.getMedicamentByDenomination(nom)
 

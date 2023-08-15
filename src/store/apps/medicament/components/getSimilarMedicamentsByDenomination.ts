@@ -14,7 +14,7 @@ const initialState: State = {
 }
 
 // Thunk
-export const getSimilarByDenomination = createAsyncThunk('medicaments/similar/getByDenomination', async (nom:String,{ rejectWithValue }) => {
+export const getSimilarByDenomination = createAsyncThunk('medicaments/similar/getByDenomination', async (nom:string,{ rejectWithValue }) => {
     try {
       const response = await MedicamentService.getSimilarMedicamentsByDenomination(nom)
 

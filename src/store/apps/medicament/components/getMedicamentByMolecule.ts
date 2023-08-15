@@ -14,7 +14,7 @@ const initialState: State = {
 }
 
 // Thunk
-export const getByMolecule = createAsyncThunk('medicaments/getByMolecule', async (molecule:String,{ rejectWithValue }) => {
+export const getByMolecule = createAsyncThunk('medicaments/getByMolecule', async (molecule:string,{ rejectWithValue }) => {
     try {
       const response = await MedicamentService.getMedicamentByMolecule(molecule)
 
