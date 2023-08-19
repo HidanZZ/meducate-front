@@ -8,18 +8,17 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
 import EcommerceTotalProfit from 'src/views/dashboards/EcommerceTotalProfit'
 import CrmWeeklySales from 'src/views/dashboards/CrmWeeklySales'
-import AutocompleteComponent from 'src/views/pages/dashboard/AutoComplete'
+import AutocompleteComponent from 'src/views/pages/medicaments/AutoComplete'
 import EcommerceWebsiteStatistics from 'src/views/dashboards/EcommerceWebsiteStatistics'
 import Link from 'next/link'
-
 
 const EcommerceDashboard = () => {
   return (
     <ApexChartWrapper>
       <Grid item xs={12} md={4} sx={{ order: 0 }}>
         <Grid container spacing={3}>
-          <Grid item xs={12} >
-            <AutocompleteComponent hidden={false}/>
+          <Grid item xs={12}>
+            <AutocompleteComponent hidden={false} />
           </Grid>
           <Grid item xs={12} md={8} sx={{ order: 0 }}>
             <Link href={'/third-page/search-result'}>

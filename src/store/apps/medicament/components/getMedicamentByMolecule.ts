@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import MedicamentService from 'src/services/medicaments'
+import { Medicament } from 'src/types/apps/medicament'
+
 
 type State = {
-  medicaments: any
+  medicaments: Array<Medicament>
   status: 'idle' | 'loading' | 'succeeded' | 'failed'
   error: string | null | undefined | { [key: string]: string[] }
 }
@@ -32,7 +34,9 @@ export const getByMolecule = createAsyncThunk('medicaments/getByMolecule', async
   const getByMoleculeSlice = createSlice({
     name: 'medicaments/getByMolecule',
     initialState,
-    reducers: {},
+    reducers: {
+      reset : () => initialState
+    },
     extraReducers: builder => {
       builder
         .addCase(getByMolecule.pending, state => {
@@ -57,5 +61,7 @@ export const getByMolecule = createAsyncThunk('medicaments/getByMolecule', async
     }
   })
   
+  export const { reset } = getByMoleculeSlice.actions
+
   export default getByMoleculeSlice.reducer
   

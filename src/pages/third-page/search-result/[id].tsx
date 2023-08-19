@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import Typography from '@mui/material/Typography'
 
 // ** Demo Components Imports
-import AutocompleteComponent from "src/views/pages/dashboard/AutoComplete";
+import AutocompleteComponent from "src/views/pages/medicaments/AutoComplete";
 import CardRelatedMedicine from 'src/views/cards/CardRelatedMedicine'
 import CardMedicine from 'src/views/cards/CardMedicine'
 
@@ -11,25 +11,6 @@ import CardMedicine from 'src/views/cards/CardMedicine'
 
 
 const SearchResult = () => {
-
-   // Define a state to hold the search term
- 
-  //const [searchTerm, setSearchTerm] = useState<string>('');
-  //const [searchResults, setSearchResults] = useState<any[]>([]);
-
-
-  // Handle the search term change and update the search results
-  // const handleSearchTermChange = (value: string) => {
-  //       setSearchTerm(value);
-  // };
-
-  // useEffect(() => {
-  //   // Filter the JSON data based on the search term
-  //   const results = jsonData.filter((product) =>
-  //     product['Nom du médicament'].toLowerCase().includes(searchTerm?.toString().toLowerCase() || '')
-  //   );
-  //   setSearchResults(results);
-  // }, [searchTerm]);
   return (
     <Grid container spacing={6}>  
       <Grid item xs={12}>

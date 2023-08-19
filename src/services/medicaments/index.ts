@@ -4,7 +4,7 @@ import { Medicament } from "src/types/apps/medicament"
 class MedicamentService {
     static async getAllMedicaments() {
         try {
-          const response = await apiClient.get<Medicament[]>(`/medicaments`)
+          const response = await apiClient.get(`/medicaments`)
     
           return response.data
         } catch (err: any) {
@@ -14,7 +14,7 @@ class MedicamentService {
 
       static async getMedicamentByDenomination (nom: string) {
         try {
-            const response = await apiClient.get<Medicament>(`/medicaments/medicament/${nom}`)
+            const response = await apiClient.get<Array<Medicament>>(`/medicaments/medicament/${nom}`)
           
           return response.data
         } catch (err: any) {
@@ -24,7 +24,7 @@ class MedicamentService {
 
       static async getMedicamentByMolecule (substance: string) {
         try {
-            const response = await apiClient.get<Medicament>(`/medicaments/molecule/${substance}`)
+            const response = await apiClient.get(`/medicaments/molecule/${substance}`)
           
           return response.data
         } catch (err: any) {
@@ -32,9 +32,9 @@ class MedicamentService {
         }
       }
 
-      static async getSimilarMedicamentsByDenomination(nom: string) {
+      static async getSimilarMedicamentsByDenomination (nom: string) {
         try {
-            const response = await apiClient.get<Medicament[]>(`/medicaments/similar/${nom}`)
+            const response = await apiClient.get(`/medicaments/similar/${nom}`)
           
           return response.data
         } catch (err: any) {
@@ -43,7 +43,6 @@ class MedicamentService {
       }
 
 }
-
 
 
 export default MedicamentService
