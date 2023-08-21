@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-const SwitchWithLabels = () => {
+type SwitchWithLabelsProps = {
+  onToggle: (newValue: 'medicament' | 'molecule') => void;
+};
+
+const SwitchWithLabels: React.FC<SwitchWithLabelsProps> = ({ onToggle }) => {
   const [currentLabel, setCurrentLabel] = useState('Medicament');
 
   const handleSwitchToggle = () => {
-    setCurrentLabel(currentLabel === 'Medicament' ? 'Molecule' : 'Medicament');
+    const newLabel = currentLabel === 'Medicament' ? 'Molecule' : 'Medicament';
+    setCurrentLabel(newLabel);
+    onToggle(newLabel.toLowerCase() as 'medicament' | 'molecule');
   };
 
   return (

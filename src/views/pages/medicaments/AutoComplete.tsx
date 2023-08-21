@@ -31,7 +31,7 @@ import { Medicament } from 'src/types/apps/medicament'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'src/store'
-import { search ,reset } from 'src/store/apps/medicament/components/getMedicamentByDenomination'
+import { search ,reset ,setSearchType} from 'src/store/apps/medicament/components/search'
 import SimpleSpinner from 'src/@core/components/spinner/Spinner'
 import SwitchWithLabels from './SwitchesBasic'
 
@@ -382,22 +382,16 @@ const AutocompleteComponent = ({ }: Props) => {
   const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'))
     const dispatch = useDispatch<AppDispatch>()
 
-    const {medicaments,status}:{medicaments:Array<Medicament>,status:string} = useSelector((state:any) => state.medicament.getByDenomination)
-
-    // useEffect(()=>{
-    //   if(error){
-    //     toast.error(error??"Error has occured")
-    //   }
-    // },[error])
+    const {medicaments,status,searchType}: {medicaments:Array<Medicament>,status:string,searchType:'name' | 'molecule'} = useSelector((state:any) => state.medicament.search)
 
   // Get all data using API
   useEffect(() => {
-    if (searchValue.length > 2){
-            dispatch(search(searchValue))
-        }else{
-            dispatch(reset());
-        }
-  }, [searchValue, dispatch])
+    if (searchValue.length > 2) {
+      dispatch(search({ nom: searchValue, searchType })); // Pass an object with 'nom' and 'searchType'
+    } else {
+      dispatch(reset());
+    }
+  }, [searchValue, searchType, dispatch]);
 
   useEffect(() => {
     if (!openDialog) {
@@ -419,6 +413,11 @@ const AutocompleteComponent = ({ }: Props) => {
     router.push('/third-page/search-result/'+obj._id)
     
   }
+
+ const handleSwitchToggle = (newValue: 'medicament' | 'molecule') => {
+    // Dispatch the action with the selected search type
+    dispatch(setSearchType(newValue));
+  };
 
   // Handle ESC & shortcut keys keydown events
   const handleKeydown = useCallback(
@@ -528,7 +527,7 @@ const AutocompleteComponent = ({ }: Props) => {
                           >
                             {/* {!hidden ? <Typography sx={{ mr: 2.5, color: 'text.disabled' }}>[esc]</Typography> : null} */}
                             
-                            <SwitchWithLabels />
+                            <SwitchWithLabels onToggle={handleSwitchToggle} />
                             <IconButton 
                               onClick={() => setOpenDialog(false)}
                               size='small' sx={{ p: 1 }}
