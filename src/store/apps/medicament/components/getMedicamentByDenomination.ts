@@ -12,6 +12,7 @@ const initialState: State = {
   status: 'idle',
   error: null
 }
+
 // export const search = createAsyncThunk('medicaments/search', async (nom: string, { rejectWithValue, getState }) => {
 //   try {
 //     const { searchType } = getState() as NewState
