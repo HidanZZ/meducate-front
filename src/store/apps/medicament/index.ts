@@ -1,8 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import getAllMedicaments from './components/getAllMedicaments'
-import getByDenomination from './components/getAllMedicaments'
-import getByMolecule from './components/getAllMedicaments'
-import getSimilarByDenomination from './components/getAllMedicaments'
+import getByDenomination from './components/getMedicamentByDenomination'
+import getByMolecule from './components/getMedicamentByMolecule'
+import getSimilarByDenomination from './components/getSimilarMedicamentsByDenomination'
+import getMedicamentById from './components/getMedicamentById'
 import search from './components/search'
 
 
@@ -11,5 +12,6 @@ export default combineReducers({
     getByDenomination,
     getByMolecule,
     getSimilarByDenomination,
+    getMedicamentById,
     search
 })

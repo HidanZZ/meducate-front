@@ -12,13 +12,13 @@ import AutocompleteComponent from 'src/views/pages/medicaments/AutoComplete'
 import EcommerceWebsiteStatistics from 'src/views/dashboards/EcommerceWebsiteStatistics'
 import Link from 'next/link'
 
-const EcommerceDashboard = () => {
+const MedicamentDashboard = () => {
   return (
     <ApexChartWrapper>
       <Grid item xs={12} md={4} sx={{ order: 0 }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <AutocompleteComponent hidden={false} />
+          <AutocompleteComponent hidden={false} />
           </Grid>
           <Grid item xs={12} md={8} sx={{ order: 0 }}>
             <Link href={'/third-page/search-result'}>
@@ -37,4 +37,4 @@ const EcommerceDashboard = () => {
   )
 }
 
-export default EcommerceDashboard
+export default MedicamentDashboard;

@@ -36,7 +36,7 @@ import SimpleSpinner from 'src/@core/components/spinner/Spinner'
 import SwitchWithLabels from './SwitchesBasic'
 
 interface Props {
-  hidden: boolean
+  hidden?: boolean
 }
 
 interface DefaultSuggestionsProps {
@@ -369,6 +369,7 @@ const DefaultSuggestions = ({ setOpenDialog }: DefaultSuggestionsProps) => {
   )
 }
 
+
 const AutocompleteComponent = ({ }: Props) => {
   // ** States
   const [isMounted, setIsMounted] = useState<boolean>(false)
@@ -380,9 +381,12 @@ const AutocompleteComponent = ({ }: Props) => {
   const router = useRouter()
   const wrapper = useRef<HTMLDivElement>(null)
   const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'))
+
     const dispatch = useDispatch<AppDispatch>()
 
-    const {medicaments,status,searchType}: {medicaments:Array<Medicament>,status:string,searchType:'name' | 'molecule'} = useSelector((state:any) => state.medicament.search)
+    const {medicaments,status,searchType}: {medicaments:Array<Medicament>,status:string,searchType:'name' | 'molecule'} = useSelector((state:any) => state.medicament.search)    
+
+    
 
   // Get all data using API
   useEffect(() => {
@@ -407,12 +411,13 @@ const AutocompleteComponent = ({ }: Props) => {
 
   // Handle click event on a list item in search result
   const handleOptionClick = (obj: Medicament) => {
-    setSearchValue('')
-    setOpenDialog(false)
-   
-    router.push('/third-page/search-result/'+obj._id)
-    
-  }
+    setSearchValue('');
+    setOpenDialog(false);
+
+    // Navigate to the search result page using the selected medicament's ID
+    router.push('/third-page/search-result/'+ obj._id);
+  };
+  
 
  const handleSwitchToggle = (newValue: 'medicament' | 'molecule') => {
     // Dispatch the action with the selected search type

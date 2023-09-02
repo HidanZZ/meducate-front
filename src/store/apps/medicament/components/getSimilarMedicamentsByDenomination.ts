@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import MedicamentService from 'src/services/medicaments'
+import { Medicament } from 'src/types/apps/medicament';
 
 type State = {
-  medicaments: any
+  medicaments: Array<Medicament>;
   status: 'idle' | 'loading' | 'succeeded' | 'failed'
   error: string | null | undefined | { [key: string]: string[] }
 }
@@ -17,7 +18,7 @@ const initialState: State = {
 export const getSimilarByDenomination = createAsyncThunk('medicaments/similar/getByDenomination', async (nom:string,{ rejectWithValue }) => {
     try {
       const response = await MedicamentService.getSimilarMedicamentsByDenomination(nom)
-
+      
       return response
     } catch (err: any) {
       if (!err.response) {
@@ -30,20 +31,24 @@ export const getSimilarByDenomination = createAsyncThunk('medicaments/similar/ge
   
   // Slice
   const getSimilarByDenominationSlice = createSlice({
-    name: 'edicaments/similar/getByDenomination',
+    name: 'medicaments/similar/getByDenomination',
     initialState,
     reducers: {},
     extraReducers: builder => {
       builder
         .addCase(getSimilarByDenomination.pending, state => {
+          console.log('hereeee loqding');
+          
           state.status = 'loading'
         })
-        .addCase(getSimilarByDenomination.fulfilled, (state, action) => {
+        builder.addCase(getSimilarByDenomination.fulfilled, (state, action) => {
+          
+
           state.status = 'succeeded'
-  
+          
           state.medicaments = action.payload
         })
-        .addCase(getSimilarByDenomination.rejected, (state, action) => {
+        builder.addCase(getSimilarByDenomination.rejected, (state, action) => {
           state.status = 'failed'
           if (action.payload) {
             // If a payload is available, it means we have a response from the server
@@ -58,4 +63,4 @@ export const getSimilarByDenomination = createAsyncThunk('medicaments/similar/ge
   })
   
   export default getSimilarByDenominationSlice.reducer
-  
+

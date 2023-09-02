@@ -13,26 +13,6 @@ const initialState: State = {
   error: null
 }
 
-// export const search = createAsyncThunk('medicaments/search', async (nom: string, { rejectWithValue, getState }) => {
-//   try {
-//     const { searchType } = getState() as NewState
-//     switch (searchType) {
-//       case 'molecule':
-//         return await MedicamentService.getMedicamentByMolecule(nom)
-//         break
-//       default:
-//         return await MedicamentService.getMedicamentByDenomination(nom)
-//         break
-//     }
-//   } catch (err: any) {
-//     if (!err.response) {
-//       throw err
-//     }
-
-//     return rejectWithValue(err.response.data)
-//   }
-// })
-
 // Thunk
 export const getByDenomination = createAsyncThunk(
   'medicaments/getByDenomination',

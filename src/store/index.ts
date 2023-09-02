@@ -10,7 +10,6 @@ import calendar from 'src/store/apps/calendar'
 import medicament from 'src/store/apps/medicament'
 
 
-
 // ** Reducers
 
 export const store = configureStore({
