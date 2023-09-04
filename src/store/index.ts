@@ -7,6 +7,8 @@ import dashboard from './apps/dashboard'
 import organization from './apps/organization'
 import chat from './apps/chat'
 import calendar from 'src/store/apps/calendar'
+import medicament from 'src/store/apps/medicament'
+
 
 // ** Reducers
 
@@ -18,7 +20,8 @@ export const store = configureStore({
     calendar,
     dashboard,
     organization,
-    chat
+    chat, 
+    medicament
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

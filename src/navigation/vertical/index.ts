@@ -15,6 +15,11 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:email-outline'
     },
     {
+      title: 'Third Page',
+      path: '/third-page/dashboard',
+      icon: 'mdi:email-outline',
+    },
+    {
       sectionTitle: 'Apps'
     },
     {

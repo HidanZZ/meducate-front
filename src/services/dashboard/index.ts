@@ -17,7 +17,7 @@ class DashboardService {
       const response = await dashboardApiClient.get<Array<TopNames>>(
         `/top-names/from/${daterange.startMonth}/${daterange.startYear}/to/${daterange.endMonth}/${daterange.endYear}`
       )
-
+      
       return response.data
     } catch (err: any) {
       throw err

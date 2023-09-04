@@ -127,7 +127,7 @@ const ChatLog = (props: ChatLogType) => {
                   }}
                   {...(isSender
                     ? {
-                        src: user?.avatar,
+                        src: user?.image,
                         alt: user?.firstName + ' ' + user?.lastName
                       }
                     : {})}
