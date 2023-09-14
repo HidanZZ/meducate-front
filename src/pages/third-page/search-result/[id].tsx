@@ -59,7 +59,7 @@ const SearchResult = () => {
         <CardMedicine medicament={medicament} />
       </Grid>
       <Grid item xs={12} sx={{ pb: 4, pt: theme => `${theme.spacing(17.5)} !important` }}>
-        <Typography variant='h5'>"Médicament de même molécule"</Typography>
+        <Typography variant='h5'>Médicament de même molécule</Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={12}>
         <CardRelatedMedicine similarMedicaments={medicaments} />
