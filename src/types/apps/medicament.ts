@@ -1,5 +1,5 @@
 export type Medicament = {
-    _id: string;
+_id: string;
 nomDuMedicament: string;
 substanceActive: string;
 epi: string;

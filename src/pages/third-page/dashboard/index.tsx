@@ -10,7 +10,6 @@ import EcommerceTotalProfit from 'src/views/dashboards/EcommerceTotalProfit'
 import CrmWeeklySales from 'src/views/dashboards/CrmWeeklySales'
 import AutocompleteComponent from 'src/views/pages/medicaments/AutoComplete'
 import EcommerceWebsiteStatistics from 'src/views/dashboards/EcommerceWebsiteStatistics'
-import Link from 'next/link'
 
 const MedicamentDashboard = () => {
   return (
@@ -21,9 +20,7 @@ const MedicamentDashboard = () => {
           <AutocompleteComponent hidden={false} />
           </Grid>
           <Grid item xs={12} md={8} sx={{ order: 0 }}>
-            <Link href={'/third-page/search-result'}>
               <EcommerceTotalProfit />
-            </Link>
           </Grid>
           <Grid item xs={12} md={4} lg={4} sx={{ order: 0 }}>
             <EcommerceWebsiteStatistics />

@@ -15,6 +15,9 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "src/store";
 import { getMedicamentById, reset } from "src/store/apps/medicament/components/getMedicamentById";
 import { useRouter } from "next/router";
+import CardMedicineFr from "src/views/cards/CardMedicineFr";
+import { MedFr } from "src/types/apps/medFr";
+import { getByDenomination } from "src/store/apps/medFr/components/getMedicamentByDenomination";
 
 
 const SearchResult = () => {
@@ -27,6 +30,8 @@ const SearchResult = () => {
   const { medicament }: { medicament: Medicament | null } = useSelector((state: any) => state.medicament.getMedicamentById);
 
   const { medicaments }: { medicaments: Array<Medicament> } = useSelector((state: any) => state.medicament.getSimilarByDenomination);
+  
+  const { medFr }: { medFr: MedFr | null} = useSelector((state: any) => state.medicament.getByDenomination);
 
 
   useEffect(() => {
@@ -40,12 +45,19 @@ const SearchResult = () => {
     };
   }, [id]);
 
+
   useEffect(() => {
     if (medicament) {
       // Now you can use the fetched medicament's details
       dispatch(getSimilarByDenomination(medicament.nomDuMedicament));
+      dispatch(getByDenomination(medicament.nomDuMedicament));
+      console.log(medFr);
     }
-  }, [medicament]);
+  }, [medicament, medFr]);
+
+ 
+
+
 
   return (
     <Grid container spacing={6}>
@@ -57,6 +69,9 @@ const SearchResult = () => {
       </Grid>
       <Grid item xs={12} sm={6}>
         <CardMedicine medicament={medicament} />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <CardMedicineFr medFr={medFr}/>
       </Grid>
       <Grid item xs={12} sx={{ pb: 4, pt: theme => `${theme.spacing(17.5)} !important` }}>
         <Typography variant='h5'>Médicament de même molécule</Typography>

@@ -66,7 +66,7 @@ const CardRelatedMedicine: React.FC<CardRelatedMedicineProps> = ({ similarMedica
           .map((medicament, index) => {
             // Look up the corresponding image name based on forme
             const forme = medicament.forme ? medicament.forme.toUpperCase() : '';
-            let imageName = ''; ''
+            let imageName = '';
 
             // Check for specific phrases in forme
             // Check for specific phrases in substanceActive
@@ -81,8 +81,8 @@ const CardRelatedMedicine: React.FC<CardRelatedMedicineProps> = ({ similarMedica
                 imageName = 'sachet.png'; // Image for Sachet or Poudre
               } else if (forme.includes('GEL') || forme.includes('POMMADE') || forme.includes('CREME')) {
                 imageName = 'pommade.png'; // Image for Gel, Pommade, Creme
-              } else if (forme.includes('COLLYRE')) {
-                imageName = 'collyre.jpg'; // Image for Collyre
+              } else if (forme.includes('COLLYRE') || forme.includes('COLLYRE EN SOLUTION')) {
+                imageName = 'collyre.png'; // Image for Collyre
               } else if (forme.includes('SUPPOSITOIRE')) {
                 imageName = 'suppositoire.png'; // Image for Suppositoire
               } else if (forme.includes('POCHE')) {

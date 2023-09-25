@@ -37,7 +37,6 @@ export const getSimilarByDenomination = createAsyncThunk('medicaments/similar/ge
     extraReducers: builder => {
       builder
         .addCase(getSimilarByDenomination.pending, state => {
-          console.log('hereeee loqding');
           
           state.status = 'loading'
         })

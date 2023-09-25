@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Grid, { GridProps } from '@mui/material/Grid'
-import { Medicament } from 'src/types/apps/medicament'
+import { MedFr } from 'src/types/apps/medFr'
 
 // Styled Grid component
 const StyledGrid1 = styled(Grid)<GridProps>(({ theme }) => ({
@@ -41,14 +41,14 @@ const Img = styled('img')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius
 }))
 
-interface CardMedicineProps {
-  medicament: Medicament | null;
+interface CardMedicineFrProps {
+  medFr: MedFr | null;
 }
 
 
-const CardMedicine :  React.FC<CardMedicineProps> = ({ medicament })=> {
+const CardMedicineFr :  React.FC<CardMedicineFrProps> = ({ medFr })=> {
 
-  const forme = medicament?.forme ? medicament.forme.toUpperCase() : '';
+  const forme = medFr?.forme_pharmaceutique ? medFr.forme_pharmaceutique.toUpperCase() : '';
   let imageName = '';
 
   // Look up the corresponding image name based on substanceActive
@@ -89,35 +89,26 @@ const CardMedicine :  React.FC<CardMedicineProps> = ({ medicament })=> {
         </StyledGrid1>
         <StyledGrid2 item xs={12} md={6} lg={7}>
           <CardContent>
-            {medicament ? (
+            {medFr ? (
               <>
                 <Typography variant='h6' sx={{ mb: 2 }}>
-                  {medicament.nomDuMedicament}
+                  {medFr.denomination}
                 </Typography>
                 <Typography variant='body2' sx={{ mb: 2 }}>
-                  Molecule : {medicament.substanceActive}
+                  {medFr.libelle_presentation}
                 </Typography>
                 <Typography variant='body2' sx={{ mb: 2 }}>
-                  Dosage : {medicament.dosage}
-                </Typography>
-                <Typography variant='body2' sx={{ mb: 2 }}>
-                  Frome : {medicament.forme.toLowerCase()}
+                  Frome : {medFr.forme_pharmaceutique.toLowerCase()}
                 </Typography>
                 <Typography sx={{ fontWeight: 500, mb: 2 }}>
-                  Prix ppv:{' '}
+                  Prix :{' '}
                   <Box component='span' sx={{ fontWeight: 'bold' }}>
-                    {medicament.ppv}
-                  </Box>
-                </Typography>
-                <Typography sx={{ fontWeight: 500, mb: 2 }}>
-                  Prix ph:{' '}
-                  <Box component='span' sx={{ fontWeight: 'bold' }}>
-                    {medicament.ph}
+                    {medFr.prix_medicament}
                   </Box>
                 </Typography>
               </>
             ) : (
-              <Typography variant='body2'>No medicament selected</Typography>
+              <Typography variant='body2'>No medFr selected</Typography>
             )}
           </CardContent>
         </StyledGrid2>
@@ -125,6 +116,6 @@ const CardMedicine :  React.FC<CardMedicineProps> = ({ medicament })=> {
     </Card>
   );
 };
-export default CardMedicine;
+export default CardMedicineFr;
 
 
