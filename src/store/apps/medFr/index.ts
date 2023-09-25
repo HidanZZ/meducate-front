@@ -4,8 +4,6 @@ import getMedicamentById from './components/getMedicamentById'
 
 
 export default combineReducers({
-    
     getMedicamentByDenomination,
     getMedicamentById
-
 })

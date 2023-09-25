@@ -31,7 +31,7 @@ return response
 )
 
 // Slice
-const getMedicamentByIdSlice = createSlice({
+const getMedicamentByDenominationSlice = createSlice({
     name: 'medFr/getByDenomination',
     initialState,
     reducers: {
@@ -60,6 +60,6 @@ const getMedicamentByIdSlice = createSlice({
     }
 })
 
-export const { reset } = getMedicamentByIdSlice.actions
+export const { reset } = getMedicamentByDenominationSlice.actions
 
-export default getMedicamentByIdSlice.reducer
+export default getMedicamentByDenominationSlice.reducer

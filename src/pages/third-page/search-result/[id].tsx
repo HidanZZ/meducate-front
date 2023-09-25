@@ -56,7 +56,10 @@ const SearchResult = () => {
   }, [medicament, medFr]);
 
  
-
+  useEffect(() => {
+    // Log the fetched MedFr data
+    console.log("MedFr:", medFr);
+  }, [medFr]);
 
 
   return (
