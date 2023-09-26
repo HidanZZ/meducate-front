@@ -10,10 +10,11 @@ import TableBody from '@mui/material/TableBody'
 import Typography from '@mui/material/Typography'
 import Box, { BoxProps } from '@mui/material/Box'
 import CardContent from '@mui/material/CardContent'
-import { styled, useTheme } from '@mui/material/styles'
-import TableContainer from '@mui/material/TableContainer'
+import { styled } from '@mui/material/styles'
 import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
 import { MedFr } from 'src/types/apps/medFr'
+
+//import Link from 'src/@core/theme/overrides/link'
 
 // ** Types
 
@@ -38,242 +39,207 @@ const CalcWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   }
 }))
 
-const PreviewCard = ({medFr}: Props) => {
+const PreviewCard = ({ medFr }: Props) => {
   // ** Hook
-  const theme = useTheme()
+  const forme = medFr?.forme_pharmaceutique ? medFr.forme_pharmaceutique.toUpperCase() : '';
+  let imageName = '';
+
+  // Look up the corresponding image name based on substanceActive
+
+  // Check for specific phrases in substanceActive
+  if (!imageName) {
+    if (forme.includes('SOLUTION INJECTABLE') || forme.includes('INJECTABLE')) {
+      imageName = 'needle.png'; // Image for Solution Injectable
+    } else if (forme.includes('SOLUTION') || forme.includes('SUSPENSION') || forme.includes('BUVABLE') || forme.includes('SOL') || forme.includes('SIROP')) {
+      imageName = 'syrup.png'; // Image for Solution, Suspension, Buvable, Sol, Sirop, etc.
+    } else if (forme.includes('COMPRIME')) {
+      imageName = 'pills.png'; // Image for Comprime
+    } else if (forme.includes('SACHET') || forme.includes('POUDRE')) {
+      imageName = 'sachet.png'; // Image for Sachet or Poudre
+    } else if (forme.includes('GEL') || forme.includes('POMMADE') || forme.includes('CREME')) {
+      imageName = 'pommade.png'; // Image for Gel, Pommade, Creme
+    } else if (forme.includes('COLLYRE')) {
+      imageName = 'collyre.png'; // Image for Collyre
+    } else if (forme.includes('COLLYRE EN SOLUTION')) {
+      imageName = 'collyre.png'; // Image for Collyre
+    } else if (forme.includes('SUPPOSITOIRE')) {
+      imageName = 'suppositoire.png'; // Image for Suppositoire
+    } else if (forme.includes('POCHE')) {
+      imageName = 'poche.png'; // Image for Poche
+    } else {
+      // Default to a generic image if no match is found
+      imageName = 'pills.png';
+    }
+  }
 
   if (medFr) {
     return (
       <Card>
         <CardContent>
           <Grid container>
-            <Grid item sm={6} xs={12} sx={{ mb: { sm: 0, xs: 4 } }}>
+            <Grid item sm={16} xs={12} sx={{ mb: { sm:-10, xs: 6 } , mt : { sm:-10, xs: 6 } }}>
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
-                  <svg
-                    width={30}
-                    height={25}
-                    version='1.1'
-                    viewBox='0 0 30 23'
-                    xmlns='http://www.w3.org/2000/svg'
-                    xmlnsXlink='http://www.w3.org/1999/xlink'
-                  >
-                    <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
-                      <g id='Artboard' transform='translate(-95.000000, -51.000000)'>
-                        <g id='logo' transform='translate(95.000000, 50.000000)'>
-                          <path
-                            id='Combined-Shape'
-                            fill={theme.palette.primary.main}
-                            d='M30,21.3918362 C30,21.7535219 29.9019196,22.1084381 29.7162004,22.4188007 C29.1490236,23.366632 27.9208668,23.6752135 26.9730355,23.1080366 L26.9730355,23.1080366 L23.714971,21.1584295 C23.1114106,20.7972624 22.7419355,20.1455972 22.7419355,19.4422291 L22.7419355,19.4422291 L22.741,12.7425689 L15,17.1774194 L7.258,12.7425689 L7.25806452,19.4422291 C7.25806452,20.1455972 6.88858935,20.7972624 6.28502902,21.1584295 L3.0269645,23.1080366 C2.07913318,23.6752135 0.850976404,23.366632 0.283799571,22.4188007 C0.0980803893,22.1084381 2.0190442e-15,21.7535219 0,21.3918362 L0,3.58469444 L0.00548573643,3.43543209 L0.00548573643,3.43543209 L0,3.5715689 C3.0881846e-16,2.4669994 0.8954305,1.5715689 2,1.5715689 C2.36889529,1.5715689 2.73060353,1.67359571 3.04512412,1.86636639 L15,9.19354839 L26.9548759,1.86636639 C27.2693965,1.67359571 27.6311047,1.5715689 28,1.5715689 C29.1045695,1.5715689 30,2.4669994 30,3.5715689 L30,3.5715689 Z'
-                          />
-                          <polygon
-                            id='Rectangle'
-                            opacity='0.077704'
-                            fill={theme.palette.common.black}
-                            points='0 8.58870968 7.25806452 12.7505183 7.25806452 16.8305646'
-                          />
-                          <polygon
-                            id='Rectangle'
-                            opacity='0.077704'
-                            fill={theme.palette.common.black}
-                            points='0 8.58870968 7.25806452 12.6445567 7.25806452 15.1370162'
-                          />
-                          <polygon
-                            id='Rectangle'
-                            opacity='0.077704'
-                            fill={theme.palette.common.black}
-                            points='22.7419355 8.58870968 30 12.7417372 30 16.9537453'
-                            transform='translate(26.370968, 12.771227) scale(-1, 1) translate(-26.370968, -12.771227) '
-                          />
-                          <polygon
-                            id='Rectangle'
-                            opacity='0.077704'
-                            fill={theme.palette.common.black}
-                            points='22.7419355 8.58870968 30 12.6409734 30 15.2601969'
-                            transform='translate(26.370968, 11.924453) scale(-1, 1) translate(-26.370968, -11.924453) '
-                          />
-                          <path
-                            id='Rectangle'
-                            fillOpacity='0.15'
-                            fill={theme.palette.common.white}
-                            d='M3.04512412,1.86636639 L15,9.19354839 L15,9.19354839 L15,17.1774194 L0,8.58649679 L0,3.5715689 C3.0881846e-16,2.4669994 0.8954305,1.5715689 2,1.5715689 C2.36889529,1.5715689 2.73060353,1.67359571 3.04512412,1.86636639 Z'
-                          />
-                          <path
-                            id='Rectangle'
-                            fillOpacity='0.35'
-                            fill={theme.palette.common.white}
-                            transform='translate(22.500000, 8.588710) scale(-1, 1) translate(-22.500000, -8.588710) '
-                            d='M18.0451241,1.86636639 L30,9.19354839 L30,9.19354839 L30,17.1774194 L15,8.58649679 L15,3.5715689 C15,2.4669994 15.8954305,1.5715689 17,1.5715689 C17.3688953,1.5715689 17.7306035,1.67359571 18.0451241,1.86636639 Z'
-                          />
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  
+                  <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img width={176} height={176}  src={`/images/${imageName}`} />
+                  </CardContent>
                   <Typography
                     variant='h6'
-                    sx={{ ml: 2.5, fontWeight: 600, lineHeight: 'normal', textTransform: 'uppercase' }}
+                    sx={{ ml:10, fontWeight: 600, lineHeight: 'normal', textTransform: 'uppercase' }}
                   >
                     {medFr.denomination}
                   </Typography>
                 </Box>
-                <div>
-                  <Typography variant='body2' sx={{ mb: 1 }}>
-                    {medFr.libelle_presentation}
-                  </Typography>
-                  <Typography variant='body2'>+1 (123) 456 7891, +44 (876) 543 2198</Typography>
-                </div>
               </Box>
             </Grid>
-            <Grid item sm={6} xs={12}>
-              <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-start', sm: 'flex-end' } }}>
-                <Table sx={{ maxWidth: '200px' }}>
+          </Grid>
+        </CardContent>
+
+        <Divider />
+
+        <CardContent>
+          <Grid container>
+            <Grid item xs={12} sm={10} sx={{ mb: { lg: 0, xs: 4 } , ml : 4}}>
+              <Typography variant='body1' sx={{ mb: 4 }}>
+                {medFr.denomination}
+              </Typography>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                  Présentation:
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.libelle_presentation}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                  Forme pharmaceutique:
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.forme_pharmaceutique}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                Condition prescription :
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.condition_prescription}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                  Statut AMM:
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.statut_amm}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                  Type procédure:
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.type_procedure_amm}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                  Etat commercialisation:
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.etat_commercialisation}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                 Groupe generique:
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.libelle_groupe_generique}
+                </Typography>
+              </Box> 
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                Voies administration :
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.voies_administration}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                Titulaires :
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.titulaires}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                Lien de Medicament :
+                </Typography>
+                {medFr.lien_avis_ct}
+
+              </Box>
+            </Grid>
+          </Grid>
+        </CardContent>
+
+        <Divider />
+
+        <CardContent>
+          <Grid container>
+            <Grid item xs={12} sm={7} lg={9} sx={{ order: { sm: 1, xs: 2 } }}>      
+              <Table sx={{ maxWidth: '200px' }}>
                   <TableBody>
                     <TableRow>
                       <MUITableCell>
                         <Typography variant='h6'>Invoice</Typography>
                       </MUITableCell>
                       <MUITableCell>
-                        {/* <Typography variant='h6'>{`#${data.invoice.id}`}</Typography> */}
                       </MUITableCell>
                     </TableRow>
                     <TableRow>
                       <MUITableCell>
-                        <Typography variant='body2'>Date Issued:</Typography>
+                        <Typography variant='body2'>Date debut secu:</Typography>
                       </MUITableCell>
                       <MUITableCell>
-                        {/* <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                          {data.invoice.issuedDate}
-                        </Typography> */}
+                        <Typography variant='body2' sx={{ fontWeight: 600 }}>
+                          {medFr.date_debut_info_secu?.toDateString()}
+                        </Typography>
                       </MUITableCell>
                     </TableRow>
                     <TableRow>
                       <MUITableCell>
-                        <Typography variant='body2'>Date Due:</Typography>
+                        <Typography variant='body2'>Date fin secu:</Typography>
                       </MUITableCell>
                       <MUITableCell>
-                        {/* <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                          {data.invoice.dueDate}
-                        </Typography> */}
+                        <Typography variant='body2' sx={{ fontWeight: 600 }}>
+                          {medFr.date_fin_info_secu?.toDateString()}
+                        </Typography>
                       </MUITableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
-              </Box>
-            </Grid>
-          </Grid>
-        </CardContent>
-
-        <Divider />
-
-        <CardContent>
-          <Grid container>
-            {/* <Grid item xs={12} sm={6} sx={{ mb: { lg: 0, xs: 4 } }}>
-              <Typography variant='body2' sx={{ mb: 3.5, fontWeight: 600 }}>
-                Invoice To:
-              </Typography>
-              <Typography variant='body2' sx={{ mb: 2 }}>
-                {data.invoice.name}
-              </Typography>
-              <Typography variant='body2' sx={{ mb: 2 }}>
-                {data.invoice.company}
-              </Typography>
-              <Typography variant='body2' sx={{ mb: 2 }}>
-                {data.invoice.address}
-              </Typography>
-              <Typography variant='body2' sx={{ mb: 2 }}>
-                {data.invoice.contact}
-              </Typography>
-              <Typography variant='body2' sx={{ mb: 2 }}>
-                {data.invoice.companyEmail}
-              </Typography>
-            </Grid> */}
-            <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: ['flex-start', 'flex-end'] }}>
-              <div>
-                <Typography variant='body2' sx={{ mb: 3.5, fontWeight: 600 }}>
-                  Prix Total:
-                </Typography>
-                <TableContainer>
-                  <Table>
-                    <TableBody>
-                      <TableRow>
-                        <MUITableCell>Total:</MUITableCell>
-                        <MUITableCell>{medFr.prix_medicament}</MUITableCell>
-                      </TableRow>
-                      {/* <TableRow>
-                        <MUITableCell>Bank name:</MUITableCell>
-                        <MUITableCell>{data.paymentDetails.bankName}</MUITableCell>
-                      </TableRow>
-                      <TableRow>
-                        <MUITableCell>Country:</MUITableCell>
-                        <MUITableCell>{data.paymentDetails.country}</MUITableCell>
-                      </TableRow>
-                      <TableRow>
-                        <MUITableCell>IBAN:</MUITableCell>
-                        <MUITableCell>{data.paymentDetails.iban}</MUITableCell>
-                      </TableRow>
-                      <TableRow>
-                        <MUITableCell>SWIFT code:</MUITableCell>
-                        <MUITableCell>{data.paymentDetails.swiftCode}</MUITableCell>
-                      </TableRow> */}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </div>
-            </Grid>
-          </Grid>
-        </CardContent>
-
-        <Divider />
-
-        <CardContent>
-          <Grid container>
-            <Grid item xs={12} sm={7} lg={9} sx={{ order: { sm: 1, xs: 2 } }}>
-              <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-                <Typography variant='body2' sx={{ mr: 2, fontWeight: 600 }}>
-                  Salesperson:
-                </Typography>
-                <Typography variant='body2'>Tommy Shelby</Typography>
-              </Box>
-
-              <Typography variant='body2'>Thanks for your business</Typography>
             </Grid>
             <Grid item xs={12} sm={5} lg={3} sx={{ mb: { sm: 0, xs: 4 }, order: { sm: 2, xs: 1 } }}>
               <CalcWrapper>
-                <Typography variant='body2'>Subtotal:</Typography>
+                <Typography variant='body2'>TAX:</Typography>
                 <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                  $1800
-                </Typography>
-              </CalcWrapper>
-              <CalcWrapper>
-                <Typography variant='body2'>Discount:</Typography>
-                <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                  $28
-                </Typography>
-              </CalcWrapper>
-              <CalcWrapper>
-                <Typography variant='body2'>Tax:</Typography>
-                <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                  21%
+                  {medFr.taux_remboursement}
                 </Typography>
               </CalcWrapper>
               <Divider />
               <CalcWrapper>
-                <Typography variant='body2'>Total:</Typography>
+                <Typography variant='body2'>Prix:</Typography>
                 <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                  $1690
+                 {medFr.prix_medicament} £
                 </Typography>
               </CalcWrapper>
             </Grid>
           </Grid>
-        </CardContent>
-
-        <Divider />
-
-        <CardContent>
-          <Typography variant='body2'>
-            <strong>Note:</strong> It was a pleasure working with you and your team. We hope you will keep us in mind
-            for future freelance projects. Thank You!
-          </Typography>
         </CardContent>
       </Card>
     )
@@ -282,4 +248,4 @@ const PreviewCard = ({medFr}: Props) => {
   }
 }
 
-export default PreviewCard
+export default PreviewCard;

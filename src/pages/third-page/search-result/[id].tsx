@@ -1,12 +1,12 @@
 // ** MUI Imports
 import { Grid } from "@mui/material";
 import { useSelector } from 'react-redux'
-
 import Typography from '@mui/material/Typography'
 
 // ** Demo Components Imports
 import AutocompleteComponent from "src/views/pages/medicaments/AutoComplete";
 import CardRelatedMedicine from 'src/views/cards/CardRelatedMedicine';
+import CardMedicineFr from "src/views/cards/CardMedicineFr";
 import CardMedicine from 'src/views/cards/CardMedicine';
 import { Medicament } from "src/types/apps/medicament";
 import { useEffect } from "react";
@@ -15,9 +15,9 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "src/store";
 import { getMedicamentById, reset } from "src/store/apps/medicament/components/getMedicamentById";
 import { useRouter } from "next/router";
-import CardMedicineFr from "src/views/cards/CardMedicineFr";
 import { MedFr } from "src/types/apps/medFr";
 import { getByDenomination } from "src/store/apps/medFr/components/getMedicamentByDenomination";
+
 
 
 const SearchResult = () => {
@@ -27,11 +27,12 @@ const SearchResult = () => {
 
   const { id } = useRouter().query;
 
+  const { medFr }: { medFr: MedFr | null } = useSelector((state: any) => state.medFr.getMedicamentByDenomination);
+
   const { medicament }: { medicament: Medicament | null } = useSelector((state: any) => state.medicament.getMedicamentById);
 
   const { medicaments }: { medicaments: Array<Medicament> } = useSelector((state: any) => state.medicament.getSimilarByDenomination);
-  
-  const { medFr }: { medFr: MedFr | null} = useSelector((state: any) => state.medicament.getByDenomination);
+
 
 
   useEffect(() => {
@@ -51,15 +52,8 @@ const SearchResult = () => {
       // Now you can use the fetched medicament's details
       dispatch(getSimilarByDenomination(medicament.nomDuMedicament));
       dispatch(getByDenomination(medicament.nomDuMedicament));
-      console.log(medFr);
     }
-  }, [medicament, medFr]);
-
- 
-  useEffect(() => {
-    // Log the fetched MedFr data
-    console.log("MedFr:", medFr);
-  }, [medFr]);
+  }, [medicament]);
 
 
   return (
@@ -74,7 +68,7 @@ const SearchResult = () => {
         <CardMedicine medicament={medicament} />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <CardMedicineFr medFr={medFr}/>
+        <CardMedicineFr medFr={medFr} />
       </Grid>
       <Grid item xs={12} sx={{ pb: 4, pt: theme => `${theme.spacing(17.5)} !important` }}>
         <Typography variant='h5'>Médicament de même molécule</Typography>

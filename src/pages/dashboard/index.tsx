@@ -12,27 +12,27 @@ import WordcloudCard from "src/views/pages/dashboard/WordcloudCard";
 
 
 const Dashboard = () => {
-   
 
-    return(
+
+    return (
         <ApexChartWrapper>
             <Grid container spacing={6}>
                 <Grid item xs={12}  >
-                    <AutocompleteComponent hidden={false}/>
-        </Grid>
+                    <AutocompleteComponent hidden={false} />
+                </Grid>
                 <Grid item xs={12} md={6} >
                     <TopNamesChart />
-                    </Grid>
-                    <Grid item xs={12} md={6} >
+                </Grid>
+                <Grid item xs={12} md={6} >
                     <TopNamesBySentimentChart />
-                    </Grid>
-                    <Grid item xs={12}  >
-                        <WordcloudCard />
-                        </Grid>
-                        <Grid item xs={12}  >
-                            <SentimentTrendChart />
-                            </Grid>
-                            
+                </Grid>
+                <Grid item xs={12}  >
+                    <WordcloudCard />
+                </Grid>
+                <Grid item xs={12}  >
+                    <SentimentTrendChart />
+                </Grid>
+
             </Grid>
         </ApexChartWrapper>
     )

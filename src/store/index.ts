@@ -23,7 +23,7 @@ export const store = configureStore({
     organization,
     chat, 
     medicament,
-    medFr
+    medFr,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

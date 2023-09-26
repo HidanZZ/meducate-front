@@ -18,8 +18,8 @@ export const getByDenomination = createAsyncThunk(
     async (nomDuMedicament: string, { rejectWithValue }) => {
         try {
             const response = await MedFrService.getMedicamentByDenomination(nomDuMedicament)
-            
-return response
+
+            return response
         } catch (err: any) {
             if (!err.response) {
                 throw err
@@ -44,7 +44,9 @@ const getMedicamentByDenominationSlice = createSlice({
         })
         builder.addCase(getByDenomination.fulfilled, (state, action) => {
             state.status = 'succeeded'
+
             state.medFr = action.payload
+
         })
         builder.addCase(getByDenomination.rejected, (state, action) => {
             state.status = 'failed'

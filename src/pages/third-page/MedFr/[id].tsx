@@ -15,7 +15,7 @@ import Alert from '@mui/material/Alert'
 // ** Types
 
 // ** Demo Components Imports
-import PreviewCard from './PreviewCard'
+import PreviewCard from './PreviewCard';
 import { MedFr } from 'src/types/apps/medFr';
 import { useSelector } from 'react-redux';
 import {getMedicamentById , reset} from 'src/store/apps/medFr/components/getMedicamentById';
@@ -28,12 +28,12 @@ const MedFrPreview = () => {
   const { id } = useRouter().query;
   const dispatch = useDispatch<AppDispatch>();
   const [error, ] = useState<boolean>(false)
-  const { medFr }: { medFr: MedFr | null } = useSelector((state: any) => state.medicament.getMedicamentById);
+  const { medFr }: { medFr: MedFr | null } = useSelector((state: any) => state.medFr.getMedicamentById);
 
 
   useEffect(() => {
     if (id) {
-      dispatch ( getMedicamentById(id as string));
+      dispatch (getMedicamentById(id as string));
     }
 
     // Clean up on unmount or when id changes
