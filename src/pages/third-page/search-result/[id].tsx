@@ -17,6 +17,7 @@ import { getMedicamentById, reset } from "src/store/apps/medicament/components/g
 import { useRouter } from "next/router";
 import { MedFr } from "src/types/apps/medFr";
 import { getByDenomination } from "src/store/apps/medFr/components/getMedicamentByDenomination";
+import { getByMolecule} from "src/store/apps/medFr/components/getMedicamentByMolecule";
 
 
 
@@ -29,6 +30,8 @@ const SearchResult = () => {
 
   const { medFr }: { medFr: MedFr | null } = useSelector((state: any) => state.medFr.getMedicamentByDenomination);
 
+  const { medFrMol }: { medFrMol: MedFr | null } = useSelector((state: any) => state.medFr.getMedicamentByMolecule);
+
   const { medicament }: { medicament: Medicament | null } = useSelector((state: any) => state.medicament.getMedicamentById);
 
   const { medicaments }: { medicaments: Array<Medicament> } = useSelector((state: any) => state.medicament.getSimilarByDenomination);
@@ -39,9 +42,8 @@ const SearchResult = () => {
     if (id) {
       dispatch(getMedicamentById(id as string));
     }
-
-    // Clean up on unmount or when id changes
-    return () => {
+    
+return () => {
       dispatch(reset());
     };
   }, [id]);
@@ -49,26 +51,29 @@ const SearchResult = () => {
 
   useEffect(() => {
     if (medicament) {
-      // Now you can use the fetched medicament's details
+
       dispatch(getSimilarByDenomination(medicament.nomDuMedicament));
       dispatch(getByDenomination(medicament.nomDuMedicament));
+
+      if (medFr && medFr.cis_code === "") {
+        dispatch(getByMolecule(medicament.substanceActive));
+        console.log(medFrMol);
+      }
     }
   }, [medicament]);
-
 
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <AutocompleteComponent hidden={false} />
       </Grid>
-      <Grid item xs={12} sx={{ pb: 4 }}>
-        <Typography variant='h5'>Médicament</Typography>
-      </Grid>
       <Grid item xs={12} sm={6}>
+        <Typography variant='h5' mb={6}>Médicament</Typography>
         <CardMedicine medicament={medicament} />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <CardMedicineFr medFr={medFr} />
+        <Typography variant='h5' mb={6}>Médicament disponible au France</Typography>
+        <CardMedicineFr medFr={medFr} medFrMol={medFrMol} />
       </Grid>
       <Grid item xs={12} sx={{ pb: 4, pt: theme => `${theme.spacing(17.5)} !important` }}>
         <Typography variant='h5'>Médicament de même molécule</Typography>

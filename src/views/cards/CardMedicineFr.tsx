@@ -29,17 +29,37 @@ const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
 
 interface CardMedicineFrProps {
   medFr: MedFr | null;
+  medFrMol : MedFr | null;
 }
 
-const CardMedicineFr: React.FC<CardMedicineFrProps> = ({ medFr }) => {
-  // ** State
+// ... Other code ...
 
-  const handleClick = () => {
-    router.push('/third-page/MedFr/'+ medFr?._id);
+const CardMedicineFr: React.FC<CardMedicineFrProps> = ({ medFr , medFrMol }) => {
+  // Check if cis_code is an empty string and treat it as null
+  let selectedMedFr = medFr;
+
+  if (medFr && medFr.cis_code === "") {
+    selectedMedFr = null;
+  } else if (medFrMol && medFrMol.cis_code === "") {
+    selectedMedFr = null;
+  }
+  
+  if (!selectedMedFr) {
+    // If selectedMedFr is null, use medFrMol as a fallback
+    selectedMedFr = medFrMol;
+  
+    if (selectedMedFr && selectedMedFr.cis_code === "") {
+      selectedMedFr = null;
+    }
   }
 
+  const handleClick = () => {
+    router.push('/third-page/MedFr/'+selectedMedFr?._id);
+  }
 
-  const forme = medFr?.forme_pharmaceutique ? medFr.forme_pharmaceutique.toUpperCase() : '';
+  console.log('selectedMedFr', selectedMedFr);
+
+  const forme = selectedMedFr?.forme_pharmaceutique ? selectedMedFr.forme_pharmaceutique.toUpperCase() : '';
   let imageName = '';
 
   // Look up the corresponding image name based on substanceActive
@@ -73,55 +93,61 @@ const CardMedicineFr: React.FC<CardMedicineFrProps> = ({ medFr }) => {
   return (
     <Card>
       <Grid container spacing={6}>
-        <StyledGrid item md={5} xs={12}>
-            <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img width={137} height={176} alt='Apple iPhone 11 Pro' src={`/images/${imageName}`} />
-            </CardContent>
-        </StyledGrid>
-        <Grid
-          item
-          xs={12}
-          md={7}
-          sx={{
-            pt: ['0 !important', '0 !important', '1.5rem !important'],
-            pl: ['1.5rem !important', '1.5rem !important', '0 !important']
-          }}
-        >
-          <CardContent>
-            {medFr ? (
-              <>
+        {selectedMedFr ? (
+          <>
+            <StyledGrid item md={5} xs={12}>
+              <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img width={137} height={176} alt='Apple iPhone 11 Pro' src={`/images/${imageName}`} />
+              </CardContent>
+            </StyledGrid>
+            <Grid
+              item
+              xs={12}
+              md={7}
+              sx={{
+                pt: ['0 !important', '0 !important', '1.5rem !important'],
+                pl: ['1.5rem !important', '1.5rem !important', '0 !important']
+              }}
+            >
+              <CardContent>
                 <Typography variant='h6' sx={{ mb: 2 }}>
-                  {medFr.denomination}
+                  {selectedMedFr.denomination}
                 </Typography>
                 <Typography variant='body2' sx={{ mb: 2 }}>
-                  {medFr.libelle_presentation}
+                  {selectedMedFr.libelle_presentation}
                 </Typography>
                 <Typography variant='body2' sx={{ mb: 2 }}>
-                  Frome : {medFr.forme_pharmaceutique.toLowerCase()}
+                  Frome : {selectedMedFr.forme_pharmaceutique.toLowerCase()}
                 </Typography>
                 <Typography sx={{ fontWeight: 500, mb: 2 }}>
-                  Prix :{' '}
+                  Prix :
                   <Box component='span' sx={{ fontWeight: 'bold' }}>
-                    {medFr.prix_medicament}
+                    {selectedMedFr.prix_medicament}
                   </Box>
                 </Typography>
-              </>
-            ) : (
-              <Typography variant='body2'>Ce medicament n'est pas disponible aux France</Typography>
-            )}
-          </CardContent>
-          <CardActions className='card-action-dense'>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-              <Button sx={{ '& svg': { mr: 2 } }} onClick={handleClick}>
-                <Icon icon='mdi:plus' fontSize={20} />
-                Show details
-              </Button>
-            </Box>
-          </CardActions>
-        </Grid>
+                <CardActions className='card-action-dense'>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                    <Button sx={{ '& svg': { mr: 2 } }} onClick={handleClick}>
+                      <Icon icon='mdi:plus' fontSize={20} />
+                      Show details
+                    </Button>
+                  </Box>
+                </CardActions>
+              </CardContent>
+            </Grid>
+          </>
+        ) : (
+          <Grid item xs={12} sx={{ alignItems: 'center', justifyContent: 'center' }}>
+            <CardContent>
+              <Typography variant='body2' sx={{ fontWeight: 500 }}>
+                Ce medicament n'est pas disponible aux France
+              </Typography>
+            </CardContent>
+          </Grid>
+        )}
       </Grid>
     </Card>
-  )
+  );
 }
 
 export default CardMedicineFr;

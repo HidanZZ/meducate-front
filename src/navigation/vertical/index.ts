@@ -1,6 +1,7 @@
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
 
+
 const navigation = (): VerticalNavItemsType => {
   return [
     {
@@ -15,9 +16,9 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:email-outline'
     },
     {
-      title: 'Third Page',
-      path: '/third-page/dashboard',
-      icon: 'mdi:email-outline',
+      title: 'Meducate Search',
+      path: '/third-page/medicamentSearch',
+      icon: 'mdi:pill'
     },
     {
       sectionTitle: 'Apps'

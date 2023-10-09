@@ -4,21 +4,32 @@ class MedFrService {
     static async getMedicamentById(id: string) {
         try {
             const response = await apiClient.get(`/medicaments/medFr/id/${id}`);
-            
-return response.data;
+
+            return response.data;
         } catch (err: any) {
             throw err;
         }
-    
+
+    };
+
+    static async getMedicamentByDenomination(nomDuMedicament: string) {
+        try {
+            const responde = await apiClient.get(`/medicaments/medFr/${nomDuMedicament}`);
+
+            return responde.data;
+        }
+        catch (err: any) {
+            throw err;
+        }
     };
     
-    static async getMedicamentByDenomination(nomDuMedicament: string) {
-        try{
-            const responde = await apiClient.get(`/medicaments/medFr/${nomDuMedicament}`); 
-            
-return responde.data;   
+    static async getMedicamentByMolecule(molecule: string) {
+        try {
+            const responde = await apiClient.get(`/medicaments/medFr/molecule/${molecule}`);
+
+            return responde.data;
         }
-        catch (err:any){
+        catch (err: any) {
             throw err;
         }
     };

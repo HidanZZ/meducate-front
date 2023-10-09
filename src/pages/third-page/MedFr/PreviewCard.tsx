@@ -13,6 +13,9 @@ import CardContent from '@mui/material/CardContent'
 import { styled } from '@mui/material/styles'
 import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
 import { MedFr } from 'src/types/apps/medFr'
+import { Button } from '@mui/material'
+import { useState } from 'react'
+import Link from 'next/link'
 
 //import Link from 'src/@core/theme/overrides/link'
 
@@ -40,11 +43,18 @@ const CalcWrapper = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 const PreviewCard = ({ medFr }: Props) => {
+
+  const [showMore, setShowMore] = useState(false);
+  const toggleShowMore = () => {
+    setShowMore(!showMore);
+  };
+
   // ** Hook
   const forme = medFr?.forme_pharmaceutique ? medFr.forme_pharmaceutique.toUpperCase() : '';
   let imageName = '';
 
   // Look up the corresponding image name based on substanceActive
+  console.log('medFr', medFr);
 
   // Check for specific phrases in substanceActive
   if (!imageName) {
@@ -77,16 +87,16 @@ const PreviewCard = ({ medFr }: Props) => {
       <Card>
         <CardContent>
           <Grid container>
-            <Grid item sm={16} xs={12} sx={{ mb: { sm:-10, xs: 6 } , mt : { sm:-10, xs: 6 } }}>
+            <Grid item sm={16} xs={12} sx={{ mb: { sm: -10, xs: 6 }, mt: { sm: -10, xs: 6 } }}>
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  
+
                   <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img width={176} height={176}  src={`/images/${imageName}`} />
+                    <img width={176} height={176} src={`/images/${imageName}`} />
                   </CardContent>
                   <Typography
                     variant='h6'
-                    sx={{ ml:10, fontWeight: 600, lineHeight: 'normal', textTransform: 'uppercase' }}
+                    sx={{ ml: 10, fontWeight: 600, lineHeight: 'normal', textTransform: 'uppercase' }}
                   >
                     {medFr.denomination}
                   </Typography>
@@ -100,7 +110,7 @@ const PreviewCard = ({ medFr }: Props) => {
 
         <CardContent>
           <Grid container>
-            <Grid item xs={12} sm={10} sx={{ mb: { lg: 0, xs: 4 } , ml : 4}}>
+            <Grid item xs={12} sm={10} sx={{ mb: { lg: 0, xs: 4 }, ml: 4 }}>
               <Typography variant='body1' sx={{ mb: 4 }}>
                 {medFr.denomination}
               </Typography>
@@ -114,6 +124,14 @@ const PreviewCard = ({ medFr }: Props) => {
               </Box>
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                  Molecule:
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.denomination_substance}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
                   Forme pharmaceutique:
                 </Typography>
                 <Typography variant='body1'>
@@ -121,8 +139,24 @@ const PreviewCard = ({ medFr }: Props) => {
                 </Typography>
               </Box>
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                  Dosage substance:
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.dosage_substance}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                  Ref dosage:
+                </Typography>
+                <Typography variant='body1'>
+                  {medFr.ref_dosage}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
-                Condition prescription :
+                  Condition prescription :
                 </Typography>
                 <Typography variant='body1'>
                   {medFr.condition_prescription}
@@ -154,15 +188,21 @@ const PreviewCard = ({ medFr }: Props) => {
               </Box>
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
-                 Groupe generique:
+                  Presentaion Etat commercialisation:
+                </Typography>
+                {medFr.etat_commercialisation_presentation}
+              </Box>
+              <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                  Groupe generique:
                 </Typography>
                 <Typography variant='body1'>
                   {medFr.libelle_groupe_generique}
                 </Typography>
-              </Box> 
+              </Box>
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
-                Voies administration :
+                  Voies administration :
                 </Typography>
                 <Typography variant='body1'>
                   {medFr.voies_administration}
@@ -170,7 +210,7 @@ const PreviewCard = ({ medFr }: Props) => {
               </Box>
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
-                Titulaires :
+                  Titulaires :
                 </Typography>
                 <Typography variant='body1'>
                   {medFr.titulaires}
@@ -178,12 +218,99 @@ const PreviewCard = ({ medFr }: Props) => {
               </Box>
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
-                Lien de Medicament :
+                  Lien de Medicament :
                 </Typography>
+                <Link href={medFr.lien_avis_ct} target="_blank" rel="noopener noreferrer">
                 {medFr.lien_avis_ct}
-
+                </Link>
               </Box>
+              {showMore && (
+                <div>
+                  <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                    <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                      Valeur ASMR :
+                    </Typography>
+                    {medFr.valeur_asmr}
+
+                  </Box><Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                    <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                      Valeur SMR :
+                    </Typography>
+                    {medFr.valeur_smr}
+
+                  </Box><Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                    <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                      Date declaration commercialisation :
+                    </Typography>
+                    {medFr.date_avis_ct}
+
+                  </Box><Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                    <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                      Date declaration commercialisation :
+                    </Typography>
+                    {medFr.date_declaration_commercialisation}
+
+                  </Box>
+                  <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                    <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                      Designation element pharmaceutique:
+                    </Typography>
+                    {medFr.designation_element_pharmaceutique}
+                  </Box>
+                  <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                    <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                      Motif evaluation:
+                    </Typography>
+                    <Typography variant='body1'>
+                      {medFr.motif_evaluation}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                    <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                      Statut AMM:
+                    </Typography>
+                    <Typography variant='body1'>
+                      {medFr.statut_amm}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                    <Typography variant='h6' sx={{ mr: 4, fontWeight: 600 }}>
+                      Date AMM:
+                    </Typography>
+                    {medFr.date_amm}
+                  </Box>
+                  <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                    <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                      Type procedure AMM:
+                    </Typography>
+                    <Typography variant='body1'>
+                      {medFr.type_procedure_amm}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+                    <Typography variant='h6' sx={{ mr: 2, fontWeight: 600 }}>
+                      Surveillance renforcee:
+                    </Typography>
+                    <Typography variant='body1'>
+                      {medFr.surveillance_renforcee}
+                    </Typography>
+                  </Box>
+                </div>
+              )}
+              <Button 
+              onClick={toggleShowMore} 
+              style={{
+              backgroundColor: 'blue',
+              color: 'white',
+              border: 'none',
+              padding: '8px 16px',
+              cursor: 'pointer',
+            }}>
+                {showMore ? 'Show Less' : 'Show More'}
+              </Button>
+
             </Grid>
+
           </Grid>
         </CardContent>
 
@@ -191,38 +318,47 @@ const PreviewCard = ({ medFr }: Props) => {
 
         <CardContent>
           <Grid container>
-            <Grid item xs={12} sm={7} lg={9} sx={{ order: { sm: 1, xs: 2 } }}>      
+            <Grid item xs={12} sm={7} lg={9} sx={{ order: { sm: 1, xs: 2 } }}>
               <Table sx={{ maxWidth: '200px' }}>
-                  <TableBody>
-                    <TableRow>
-                      <MUITableCell>
-                        <Typography variant='h6'>Invoice</Typography>
-                      </MUITableCell>
-                      <MUITableCell>
-                      </MUITableCell>
-                    </TableRow>
-                    <TableRow>
-                      <MUITableCell>
-                        <Typography variant='body2'>Date debut secu:</Typography>
-                      </MUITableCell>
-                      <MUITableCell>
-                        <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                          {medFr.date_debut_info_secu?.toDateString()}
-                        </Typography>
-                      </MUITableCell>
-                    </TableRow>
-                    <TableRow>
-                      <MUITableCell>
-                        <Typography variant='body2'>Date fin secu:</Typography>
-                      </MUITableCell>
-                      <MUITableCell>
-                        <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                          {medFr.date_fin_info_secu?.toDateString()}
-                        </Typography>
-                      </MUITableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                <TableBody>
+                  <TableRow>
+                    <MUITableCell>
+                      <Typography variant='h6'>Date</Typography>
+                    </MUITableCell>
+                    <MUITableCell>
+                    </MUITableCell>
+                  </TableRow>
+                  <TableRow>
+                    <MUITableCell>
+                      <Typography variant='body2'>Date debut secu:</Typography>
+                    </MUITableCell>
+                    <MUITableCell>
+                      <Typography variant='body2' sx={{ fontWeight: 600 }}>
+                        {medFr.date_debut_info_secu}
+                      </Typography>
+                    </MUITableCell>
+                  </TableRow>
+                  <TableRow>
+                    <MUITableCell>
+                      <Typography variant='body2'>Date fin secu:</Typography>
+                    </MUITableCell>
+                    <MUITableCell>
+                      <Typography variant='body2' sx={{ fontWeight: 600 }}>
+                        {medFr.date_fin_info_secu}
+                      </Typography>
+                    </MUITableCell>
+                  </TableRow>        <TableRow>
+                    <MUITableCell>
+                      <Typography variant='body2'>Date AMM:</Typography>
+                    </MUITableCell>
+                    <MUITableCell>
+                      <Typography variant='body2' sx={{ fontWeight: 600 }}>
+                        {medFr.date_amm}
+                      </Typography>
+                    </MUITableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
             </Grid>
             <Grid item xs={12} sm={5} lg={3} sx={{ mb: { sm: 0, xs: 4 }, order: { sm: 2, xs: 1 } }}>
               <CalcWrapper>
@@ -235,7 +371,7 @@ const PreviewCard = ({ medFr }: Props) => {
               <CalcWrapper>
                 <Typography variant='body2'>Prix:</Typography>
                 <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                 {medFr.prix_medicament} £
+                  {medFr.prix_medicament} £
                 </Typography>
               </CalcWrapper>
             </Grid>

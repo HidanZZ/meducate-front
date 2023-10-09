@@ -2,13 +2,10 @@
 import { useEffect, useCallback, useRef, useState, ChangeEvent } from 'react'
 
 // ** Next Imports
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import List from '@mui/material/List'
 import MuiDialog from '@mui/material/Dialog'
 import ListItem from '@mui/material/ListItem'
 import TextField from '@mui/material/TextField'
@@ -32,136 +29,11 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'src/store'
 import { search ,reset ,setSearchType} from 'src/store/apps/medicament/components/search'
-import SimpleSpinner from 'src/@core/components/spinner/Spinner'
 import SwitchWithLabels from './SwitchesBasic'
 
 interface Props {
   hidden?: boolean
 }
-
-interface DefaultSuggestionsProps {
-  setOpenDialog: (val: boolean) => void
-}
-
-interface NoResultProps {
-  value: string
-  setOpenDialog: (val: boolean) => void
-  status : string
-}
-
-interface DefaultSuggestionsType {
-  category: string
-  suggestions: {
-    link: string
-    icon: string
-    suggestion: string
-  }[]
-}
-
-const defaultSuggestionsData: DefaultSuggestionsType[] = [
-  {
-    category: 'Popular Searches',
-    suggestions: [
-      {
-        icon: 'mdi:chart-donut',
-        suggestion: 'Analytics',
-        link: '/dashboards/crm'
-      },
-      {
-        icon: 'mdi:poll',
-        suggestion: 'Analytics',
-        link: '/dashboards/analytics'
-      },
-      {
-        icon: 'mdi:chart-bubble',
-        suggestion: 'eCommerce',
-        link: '/dashboards/ecommerce'
-      },
-      {
-        icon: 'mdi:account-group',
-        suggestion: 'User List',
-        link: '/apps/user/list'
-      }
-    ]
-  },
-  {
-    category: 'Apps & Pages',
-    suggestions: [
-      {
-        icon: 'mdi:calendar-blank',
-        suggestion: 'Calendar',
-        link: '/apps/calendar'
-      },
-      {
-        icon: 'mdi:format-list-numbered',
-        suggestion: 'Invoice List',
-        link: '/apps/invoice/list'
-      },
-      {
-        icon: 'mdi:currency-usd',
-        suggestion: 'Pricing',
-        link: '/pages/pricing'
-      },
-      {
-        icon: 'mdi:account-cog-outline',
-        suggestion: 'Account Settings',
-        link: '/pages/account-settings/account'
-      }
-    ]
-  },
-  {
-    category: 'User Interface',
-    suggestions: [
-      {
-        icon: 'mdi:format-text-variant-outline',
-        suggestion: 'Typography',
-        link: '/ui/typography'
-      },
-      {
-        icon: 'mdi:tab',
-        suggestion: 'Tabs',
-        link: '/components/tabs'
-      },
-      {
-        icon: 'mdi:gesture-tap-button',
-        suggestion: 'Buttons',
-        link: '/components/buttons'
-      },
-      {
-        icon: 'mdi:card-bulleted-settings-outline',
-        suggestion: 'Advanced Cards',
-        link: '/ui/cards/advanced'
-      }
-    ]
-  },
-  {
-    category: 'Forms & Tables',
-    suggestions: [
-      {
-        icon: 'mdi:format-list-checkbox',
-        suggestion: 'Select',
-        link: '/forms/form-elements/select'
-      },
-      {
-        icon: 'mdi:lastpass',
-        suggestion: 'Autocomplete',
-        link: '/forms/form-elements/autocomplete'
-      },
-      {
-        icon: 'mdi:view-grid-outline',
-        suggestion: 'Table',
-        link: '/tables/mui'
-      },
-      {
-        icon: 'mdi:calendar-range',
-        suggestion: 'Date Pickers',
-        link: '/forms/form-elements/pickers'
-      }
-    ]
-  }
-]
-
-
 
 // ** Styled Autocomplete component
 const Autocomplete = styled(MuiAutocomplete)(({ theme }) => ({
@@ -239,137 +111,6 @@ const Dialog = styled(MuiDialog)({
     }
   }
 })
-
-const NoResult = ({ value, setOpenDialog ,status}: NoResultProps) => {
-
-    if(value.length <3){
-        return null
-    }
-    
-  return (
-    <>
-    {
-        status === 'loading' ? (<Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
-            <SimpleSpinner />
-        </Box>):( <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
-      <Box sx={{ mb: 2.5, color: 'text.primary' }}>
-        <Icon icon='mdi:file-remove-outline' fontSize='5rem' />
-      </Box>
-      <Typography variant='h6' sx={{ mb: 11.5, wordWrap: 'break-word' }}>
-        No results for{' '}
-        <Typography variant='h6' component='span' sx={{ wordWrap: 'break-word' }}>
-          {`"${value}"`}
-        </Typography>
-      </Typography>
-
-      <Typography variant='body2' sx={{ mb: 2.5, color: 'text.disabled' }}>
-        Try searching for
-      </Typography>
-      <List sx={{ py: 0 }}>
-        <ListItem sx={{ py: 2 }} disablePadding onClick={() => setOpenDialog(false)}>
-          <Box
-            component={Link}
-            href='/dashboards/ecommerce'
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              textDecoration: 'none',
-              '&:hover > *': { color: 'primary.main' }
-            }}
-          >
-            <Box sx={{ mr: 2.5, display: 'flex', color: 'text.primary' }}>
-              <Icon icon='mdi:cart-outline' fontSize={20} />
-            </Box>
-            <Typography variant='body2' sx={{ color: 'text.primary' }}>
-              eCommerce Dashboard
-            </Typography>
-          </Box>
-        </ListItem>
-        <ListItem sx={{ py: 2 }} disablePadding onClick={() => setOpenDialog(false)}>
-          <Box
-            component={Link}
-            href='/pages/user-profile/profile'
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              textDecoration: 'none',
-              '&:hover > *': { color: 'primary.main' }
-            }}
-          >
-            <Box sx={{ mr: 2.5, display: 'flex', color: 'text.primary' }}>
-              <Icon icon='mdi:account-outline' fontSize={20} />
-            </Box>
-            <Typography variant='body2' sx={{ color: 'text.primary' }}>
-              User Profile
-            </Typography>
-          </Box>
-        </ListItem>
-        <ListItem sx={{ py: 2 }} disablePadding onClick={() => setOpenDialog(false)}>
-          <Box
-            component={Link}
-            href='/pages/account-settings/account'
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              textDecoration: 'none',
-              '&:hover > *': { color: 'primary.main' }
-            }}
-          >
-            <Box sx={{ mr: 2.5, display: 'flex', color: 'text.primary' }}>
-              <Icon icon='mdi:account-cog-outline' fontSize={20} />
-            </Box>
-            <Typography variant='body2' sx={{ color: 'text.primary' }}>
-              Account Settings
-            </Typography>
-          </Box>
-        </ListItem>
-      </List>
-    </Box>)
-    }
-    </>
-   
-  )
-}
-
-const DefaultSuggestions = ({ setOpenDialog }: DefaultSuggestionsProps) => {
-  return (
-    <Grid container spacing={6} sx={{ ml: 0 }}>
-      {defaultSuggestionsData.map((item, index) => (
-        <Grid item xs={12} sm={6} key={index}>
-          <Typography component='p' variant='overline' sx={{ lineHeight: 1.25, color: 'text.disabled' }}>
-            {item.category}
-          </Typography>
-          <List sx={{ py: 2.5 }}>
-            {item.suggestions.map((suggestionItem, index2) => (
-              <ListItem key={index2} sx={{ py: 2 }} disablePadding>
-                <Box
-                  component={Link}
-                  href={suggestionItem.link}
-                  onClick={() => setOpenDialog(false)}
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    '& svg': { mr: 2.5 },
-                    color: 'text.primary',
-                    textDecoration: 'none',
-                    '&:hover > *': { color: 'primary.main' }
-                  }}
-                >
-                  <Icon icon={suggestionItem.icon} fontSize={20} />
-                  <Typography variant='body2' sx={{ color: 'text.primary' }}>
-                    {suggestionItem.suggestion}
-                  </Typography>
-                </Box>
-              </ListItem>
-            ))}
-          </List>
-        </Grid>
-      ))}
-    </Grid>
-  )
-}
-
-
 const AutocompleteComponent = ({ }: Props) => {
   // ** States
   const [isMounted, setIsMounted] = useState<boolean>(false)
@@ -384,7 +125,7 @@ const AutocompleteComponent = ({ }: Props) => {
 
     const dispatch = useDispatch<AppDispatch>()
 
-    const {medicaments,status,searchType}: {medicaments:Array<Medicament>,status:string,searchType:'name' | 'molecule'} = useSelector((state:any) => state.medicament.search)    
+    const {medicaments,searchType}: {medicaments:Array<Medicament>,status:string,searchType:'name' | 'molecule'} = useSelector((state:any) => state.medicament.search)    
 
     
 
@@ -484,7 +225,7 @@ const AutocompleteComponent = ({ }: Props) => {
                 onInputChange={(event, value: string) => setSearchValue(value)}
                 onChange={(event, obj) => handleOptionClick(obj as Medicament)}
 
-                noOptionsText={<NoResult value={searchValue} setOpenDialog={setOpenDialog} status={status} />}
+                // noOptionsText={<NoResult value={searchValue} setOpenDialog={setOpenDialog} status={status} />}
                 getOptionLabel={(option: Medicament | unknown) => (option as Medicament).nomDuMedicament}
                 
                 sx={{
@@ -594,7 +335,7 @@ const AutocompleteComponent = ({ }: Props) => {
                   height: fullScreenDialog ? 'calc(100vh - 69px)' : '100%'
                 }}
               >
-                <DefaultSuggestions setOpenDialog={setOpenDialog} />
+                {/* <DefaultSuggestions setOpenDialog={setOpenDialog} /> */}
               </Box>
             ) :null}
           </Dialog>

@@ -1,26 +1,26 @@
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import { styled } from '@mui/material/styles'
-import Typography from '@mui/material/Typography'
-import CardContent from '@mui/material/CardContent'
-import Grid, { GridProps } from '@mui/material/Grid'
-import { Medicament } from 'src/types/apps/medicament'
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import Grid, { GridProps } from '@mui/material/Grid';
+import { Medicament } from 'src/types/apps/medicament';
 
 // Styled Grid component
 const StyledGrid1 = styled(Grid)<GridProps>(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'flex-start',
+  alignItems: 'center',
   [theme.breakpoints.down('md')]: {
-    paddingTop: '0 !important'
+    order: -1,
   },
   '& .MuiCardContent-root': {
     padding: theme.spacing(3, 2.5), // Adjusted padding
     [theme.breakpoints.down('md')]: {
-      paddingTop: 0
-    }
-  }
-}))
+      paddingTop: 0,
+    },
+  },
+}));
 
 // Styled Grid component
 const StyledGrid2 = styled(Grid)<GridProps>(({ theme }) => ({
@@ -28,34 +28,28 @@ const StyledGrid2 = styled(Grid)<GridProps>(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   [theme.breakpoints.up('md')]: {
-    paddingLeft: '0 !important'
+    paddingLeft: '0 !important',
   },
-  [theme.breakpoints.down('md')]: {
-    order: -1
-  }
-}))
+}));
 
 // Styled component for the image
 const Img = styled('img')(({ theme }) => ({
-  height: '10rem', // Adjusted height
-  borderRadius: theme.shape.borderRadius
-}))
+  width: '100%', // Adjusted width to make it responsive
+  maxWidth: '200px', // Set a maximum width to prevent excessive scaling
+  height: 'auto', // Maintain aspect ratio
+  borderRadius: theme.shape.borderRadius,
+}));
 
 interface CardMedicineProps {
   medicament: Medicament | null;
 }
 
-
-const CardMedicine :  React.FC<CardMedicineProps> = ({ medicament })=> {
-
+const CardMedicine: React.FC<CardMedicineProps> = ({ medicament }) => {
   const forme = medicament?.forme ? medicament.forme.toUpperCase() : '';
   let imageName = '';
 
-  // Look up the corresponding image name based on substanceActive
-
-  // Check for specific phrases in substanceActive
   if (!imageName) {
-    if (forme.includes('SOLUTION INJECTABLE') || forme.includes('INJECTABLE')){
+    if (forme.includes('SOLUTION INJECTABLE') || forme.includes('INJECTABLE')) {
       imageName = 'needle.png'; // Image for Solution Injectable
     } else if (forme.includes('SOLUTION') || forme.includes('SUSPENSION') || forme.includes('BUVABLE') || forme.includes('SOL') || forme.includes('SIROP')) {
       imageName = 'syrup.png'; // Image for Solution, Suspension, Buvable, Sol, Sirop, etc.
@@ -78,10 +72,10 @@ const CardMedicine :  React.FC<CardMedicineProps> = ({ medicament })=> {
       imageName = 'pills.png';
     }
   }
-
-  return (
-    <Card sx={{ maxWidth: 500 }}> {/* Adjusted max width */}
-      <Grid container spacing={4}> {/* Adjusted spacing */}
+  
+return (
+    <Card sx={{ width: '100%' }}> {/* Set width to 100% for responsiveness */}
+      <Grid container spacing={4}>
         <StyledGrid1 item xs={12} md={6} lg={5}>
           <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Img alt={forme} src={`/images/${imageName}`} />
@@ -126,5 +120,3 @@ const CardMedicine :  React.FC<CardMedicineProps> = ({ medicament })=> {
   );
 };
 export default CardMedicine;
-
-

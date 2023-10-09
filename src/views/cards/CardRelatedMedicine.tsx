@@ -46,23 +46,21 @@ interface CardRelatedMedicineProps {
   similarMedicaments: Array<Medicament> | null;
 }
 
-// Define the mapping for ima
-
 const CardRelatedMedicine: React.FC<CardRelatedMedicineProps> = ({ similarMedicaments }) => {
-
-  // const [visibleCards, setVisibleCards] = useState(3); // Number of cards to initially display
-
   const [showMore, setShowMore] = React.useState(false);
+
   const maxMedicamentsToShow = 6;
   useEffect(() => {
     console.log('similarMedicaments', similarMedicaments);
   }, [similarMedicaments]);
 
+  const hasMoreMedicaments = similarMedicaments && similarMedicaments.length > maxMedicamentsToShow;
+
   return (
     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
       {similarMedicaments ? (
         similarMedicaments
-          .slice(0, showMore ? undefined : maxMedicamentsToShow)
+          .slice(0, showMore || !hasMoreMedicaments ? undefined : maxMedicamentsToShow)
           .map((medicament, index) => {
             // Look up the corresponding image name based on forme
             const forme = medicament.forme ? medicament.forme.toUpperCase() : '';
@@ -147,19 +145,20 @@ const CardRelatedMedicine: React.FC<CardRelatedMedicineProps> = ({ similarMedica
           })
       ) : (
         <Typography variant='body2'>No related medicaments</Typography>
-      )}
-      <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setShowMore(!showMore)}
-          >
-            {showMore ? "Show Less" : "Show More"}
-          </Button>
+        )}
+        {hasMoreMedicaments && (
+          <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setShowMore(!showMore)}
+            >
+              {showMore ? "Show Less" : "Show More"}
+            </Button>
+          </Grid>
+        )}
       </Grid>
-    </Grid>
-  );
-
-};
-
-export default CardRelatedMedicine;
+    );
+  };
+  
+  export default CardRelatedMedicine;
